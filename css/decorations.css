@@ -1,0 +1,143 @@
+/* Animações para os elementos decorativos */
+@keyframes gentleSway {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-3deg);
+    }
+    75% {
+        transform: rotate(3deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    70% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes grow {
+    0% {
+        transform: scaleY(0.8);
+    }
+    50% {
+        transform: scaleY(1.1);
+    }
+    100% {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animações específicas por tipo de decoração */
+.grass-left .svg-decoration, .grass-right .svg-decoration {
+    animation: gentleSway 5s ease-in-out infinite;
+}
+
+.flower-left .svg-decoration, .flower-right .svg-decoration {
+    animation: popIn 0.5s ease forwards, gentleSway 6s ease-in-out 0.5s infinite;
+}
+
+.leaf-top .svg-decoration {
+    animation: gentleSway 7s ease-in-out infinite;
+}
+
+.sprout .svg-decoration {
+    animation: grow 4s ease infinite;
+}
+
+/* Animação especial quando clica nos elementos */
+.decoration .svg-decoration.animated {
+    animation-name: bounce;
+    animation-duration: 0.8s;
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    filter: brightness(1.2) saturate(1.5);
+}
+
+/* Efeito de brilho nos SVGs ao passar o mouse */
+.decoration:hover .svg-decoration {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7)) brightness(1.1);
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+    .decoration {
+        transform: scale(0.8); /* Elementos um pouco menores em telas pequenas */
+    }
+    
+    .grass-left {
+        bottom: 5px;
+        left: -10px;
+    }
+    
+    .grass-right {
+        bottom: 10px;
+        right: -10px;
+    }
+    
+    .flower-left, .flower-right {
+        bottom: 15px;
+    }
+}
+
+/* Efeito de aparição gradual dos elementos decorativos */
+.decoration {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+.grass-left {
+    animation-delay: 0.2s;
+}
+
+.flower-right {
+    animation-delay: 0.4s;
+}
+
+.grass-right {
+    animation-delay: 0.6s;
+}
+
+.flower-left {
+    animation-delay: 0.8s;
+}
+
+.leaf-top {
+    animation-delay: 1s;
+}
+
+.sprout {
+    animation-delay: 1.2s;
+}

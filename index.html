@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tomo-AI</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/decorations.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+ </head>
+<body>
+  <!-- Bolhas decorativas de fundo -->
+  <div class="bubble" style="width: 40px; height: 40px; top: 10%; left: 10%; --move-x: 100px; --move-y: -150px;"></div>
+  <div class="bubble" style="width: 25px; height: 25px; top: 15%; right: 20%; --move-x: -80px; --move-y: -120px;"></div>
+  <div class="bubble" style="width: 50px; height: 50px; top: 80%; left: 15%; --move-x: 130px; --move-y: -200px;"></div>
+  <div class="bubble" style="width: 35px; height: 35px; top: 75%; right: 10%; --move-x: -100px; --move-y: -180px;"></div>
+  <div class="bubble" style="width: 20px; height: 20px; top: 40%; left: 8%; --move-x: 70px; --move-y: -100px;"></div>
+  <div class="bubble" style="width: 30px; height: 30px; top: 30%; right: 8%; --move-x: -110px; --move-y: -150px;"></div>
+
+  <div class="chatbot-container">
+    <div class="mascot-container">
+      <img id="capivara-gif" alt="Capivara kawaii piscando os olhos" class="mascot-gif">
+      <!-- Elementos decorativos ao redor do mascote -->
+      <div class="decoration grass-left">
+        <img src="images/svg/grass.svg" alt="Grama" class="svg-decoration">
+      </div>
+      <div class="decoration flower-right">
+        <img src="images/svg/flower.svg" alt="Flor" class="svg-decoration">
+      </div>
+      <div class="decoration grass-right">
+        <img src="images/svg/grass.svg" alt="Grama" class="svg-decoration">
+      </div>
+      <div class="decoration flower-left">
+        <img src="images/svg/flower.svg" alt="Flor" class="svg-decoration">
+      </div>
+      <div class="decoration leaf-top">
+        <img src="images/svg/leaf.svg" alt="Folha" class="svg-decoration">
+      </div>
+      <div class="decoration sprout">
+        <img src="images/svg/sprout.svg" alt="Broto" class="svg-decoration">
+      </div>
+    </div>
+    <div class="settings-icon" id="settings-icon">⚙️</div>
+    <h1 class="title">Oi! Eu sou Tomo-AI!</h1>
+    <div id="chat" class="chat-box">
+      <div class="bot-message">Olá! Sou o Tomo, sua capivara amiga. Para conversarmos, clique no ícone ⚙️ e configure sua chave de API (OpenAI, Anthropic, Hugging Face, Cohere ou Google Gemini). Não se preocupe, por segurança sua chave não será armazenada permanentemente! 🍃</div>
+    </div>
+    <form id="chat-form">
+      <input type="text" id="user-input" placeholder="Converse comigo..." required />
+      <button type="submit">Enviar 💌</button>
+    </form>
+  </div>
+
+  <!-- Modal de configurações -->
+  <div id="settings-modal" class="settings-modal">
+    <div class="settings-content">
+      <span class="close-settings">&times;</span>
+      <h2>Configurações do Tomo-AI</h2>
+      <div class="settings-form">
+        <div class="form-group">
+          <label for="api-service">Serviço de IA:</label>
+          <select id="api-service">
+            <option value="openai">OpenAI (GPT)</option>
+            <option value="anthropic">Anthropic (Claude)</option>
+            <option value="huggingface">Hugging Face</option>
+            <option value="cohere">Cohere</option>
+            <option value="gemini">Google (Gemini)</option>
+          </select>
+        </div>
+      <div class="settings-info">
+        <details>
+          <summary>Problemas com a chave API?</summary>
+          <div class="api-help">
+            <h4>Como obter chaves de API</h4>
+            <ul>
+              <li><strong>OpenAI:</strong> Acesse <a href="https://platform.openai.com/account/api-keys" target="_blank">platform.openai.com</a></li>
+              <li><strong>Anthropic:</strong> Visite <a href="https://console.anthropic.com/keys" target="_blank">console.anthropic.com</a></li>
+              <li><strong>Gemini:</strong> Acesse <a href="https://aistudio.google.com/app/apikey" target="_blank">AI Studio</a></li>
+              <li><strong>Hugging Face:</strong> Obtenha em <a href="https://huggingface.co/settings/tokens" target="_blank">huggingface.co/settings</a></li>
+              <li><strong>Cohere:</strong> Disponível em <a href="https://dashboard.cohere.com/api-keys" target="_blank">dashboard.cohere.com</a></li>
+            </ul>
+            <h4>Problemas comuns</h4>
+            <ul>
+              <li>Verifique se a chave foi copiada completamente, sem espaços extras</li>
+              <li>Confirme se sua conta tem acesso ao modelo selecionado</li>
+              <li>Algumas APIs exigem cartão de crédito ou créditos disponíveis</li>
+              <li>Certifique-se de que sua chave está ativa e não expirou</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+        <div class="form-group">
+          <label for="api-key">Chave da API:</label>
+          <div class="api-key-container">
+            <input type="password" id="api-key" placeholder="Insira sua chave da API aqui">
+            <button type="button" id="toggle-api-visibility" class="toggle-visibility" title="Mostrar/ocultar chave">👁️</button>
+          </div>
+          <p class="security-note">🔒 Por segurança, sua chave não será salva permanentemente.</p>
+          <div id="api-key-feedback" class="api-key-feedback"></div>
+        </div>
+        <div class="form-group">
+          <label for="model-select">Modelo:</label>
+          <select id="model-select">
+            <!-- Modelos OpenAI -->
+            <option value="gpt-3.5-turbo" data-service="openai">GPT-3.5 Turbo</option>
+            <option value="gpt-4" data-service="openai">GPT-4</option>
+            <option value="gpt-4o" data-service="openai">GPT-4o</option>
+            <!-- Modelos Anthropic -->
+            <option value="claude-3-opus-20240229" data-service="anthropic">Claude 3 Opus</option>
+            <option value="claude-3-sonnet-20240229" data-service="anthropic">Claude 3 Sonnet</option>
+            <option value="claude-3-haiku-20240307" data-service="anthropic">Claude 3 Haiku</option>
+            <!-- Modelos Hugging Face -->
+            <option value="meta-llama/Llama-2-7b-chat" data-service="huggingface">Llama 2 7B</option>
+            <option value="mistralai/Mistral-7B-Instruct-v0.2" data-service="huggingface">Mistral 7B</option>
+            <!-- Modelos Cohere -->
+            <option value="command" data-service="cohere">Command</option>
+            <option value="command-r" data-service="cohere">Command-R</option>
+            <!-- Modelos Google Gemini -->
+            <option value="gemini-1.5-pro" data-service="gemini">Gemini 1.5 Pro</option>
+            <option value="gemini-1.5-flash" data-service="gemini">Gemini 1.5 Flash</option>
+            <option value="gemini-ultra-1.0" data-service="gemini">Gemini Ultra 1.0</option>
+            <option value="gemini-2.0-pro" data-service="gemini">Gemini 2.0 Pro</option>
+          </select>
+        </div>
+        <button id="save-settings" class="settings-btn">Usar Chave Nesta Sessão</button>
+      </div>
+      <div class="settings-info">
+        <details>
+          <summary>Problemas com a chave API?</summary>
+          <div class="api-help">
+            <h4>Como obter chaves de API</h4>
+            <ul>
+              <li><strong>OpenAI:</strong> Acesse <a href="https://platform.openai.com/account/api-keys" target="_blank">platform.openai.com</a></li>
+              <li><strong>Anthropic:</strong> Visite <a href="https://console.anthropic.com/keys" target="_blank">console.anthropic.com</a></li>
+              <li><strong>Gemini:</strong> Acesse <a href="https://aistudio.google.com/app/apikey" target="_blank">AI Studio</a></li>
+              <li><strong>Hugging Face:</strong> Obtenha em <a href="https://huggingface.co/settings/tokens" target="_blank">huggingface.co/settings</a></li>
+              <li><strong>Cohere:</strong> Disponível em <a href="https://dashboard.cohere.com/api-keys" target="_blank">dashboard.cohere.com</a></li>
+            </ul>
+            <h4>Problemas comuns</h4>
+            <ul>
+              <li>Verifique se a chave foi copiada completamente, sem espaços extras</li>
+              <li>Confirme se sua conta tem acesso ao modelo selecionado</li>
+              <li>Algumas APIs exigem cartão de crédito ou créditos disponíveis</li>
+              <li>Certifique-se de que sua chave está ativa e não expirou</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" fill-rule="evenodd">
+    <path d="M30,10 C30,10 25,30 28,50" stroke="#4CAF50" stroke-width="3" stroke-linecap="round"/>
+    <path d="M30,10 L20,5" stroke="#8BC34A" stroke-width="3" stroke-linecap="round"/>
+    <path d="M30,10 L40,5" stroke="#8BC34A" stroke-width="3" stroke-linecap="round"/>
+    <path d="M30,20 L15,15" stroke="#8BC34A" stroke-width="3" stroke-linecap="round"/>
+    <path d="M30,20 L45,15" stroke="#8BC34A" stroke-width="3" stroke-linecap="round"/>
+    <path d="M30,30 L18,28" stroke="#8BC34A" stroke-width="3" stroke-linecap="round"/>
+    <path d="M30,30 L42,28" stroke="#8BC34A" stroke-width="3" stroke-linecap="round"/>
+    <path d="M29,40 L20,42" stroke="#8BC34A" stroke-width="2" stroke-linecap="round"/>
+    <path d="M29,40 L38,42" stroke="#8BC34A" stroke-width="2" stroke-linecap="round"/>
+  </g>
+</svg>

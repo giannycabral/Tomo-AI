@@ -1,0 +1,846 @@
+body{
+    margin: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a97c50' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+    linear-gradient(135deg, #ffedd8, #d8ffed);
+    font-family: 'Baloo 2', cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #6a4928;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v20H0V0zm10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14z' fill='%23a97c50' fill-opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: -1;
+}
+
+.chatbot-container {
+    background-color: #fff9f0;
+    border-radius: 2.5rem;
+    box-shadow: 0 8px 32px rgba(169, 124, 80, 0.15), 
+                inset 0 -4px 0 #c49b6d,
+                0 -8px 20px rgba(255, 255, 255, 0.3);
+    padding: 2rem;
+    width: 90%;
+    max-width: 450px; /* Aumentado para acomodar o mascote maior */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Estilos kawaii para o mascote da capivara */
+.mascot-container {
+    margin-bottom: 1rem;
+    position: relative;
+    width: 230px; /* Aumentado para acomodar decorações */
+    height: 230px; /* Aumentado para acomodar decorações */
+    margin: 0 auto 1.5rem;
+    filter: drop-shadow(0 6px 8px rgba(169, 124, 80, 0.3));
+}
+
+/* Sombra abaixo da capivara */
+.mascot-container::before {
+    content: "";
+    position: absolute;
+    width: 180px; /* Ajustado para o novo tamanho */
+    height: 30px;
+    background: radial-gradient(ellipse at center, rgba(169, 124, 80, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+    bottom: -15px;
+    left: 25px; /* Centralizado com o novo tamanho */
+    border-radius: 50%;
+    z-index: -1;
+    /* Animação de pulsar sombra removida */
+}
+
+/* Elementos decorativos */
+.decoration {
+    position: absolute;
+    z-index: 1;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 40px; /* Tamanho base para os elementos */
+    height: 40px;
+}
+
+.decoration:hover {
+    transform: scale(1.2) rotate(5deg);
+    filter: saturate(1.5) brightness(1.1);
+}
+
+.svg-decoration {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Mato esquerdo */
+.grass-left {
+    width: 45px;
+    height: 60px;
+    bottom: 10px;
+    left: -5px;
+    transform: rotate(-15deg);
+}
+
+/* Flor direita */
+.flower-right {
+    width: 50px;
+    height: 55px;
+    bottom: 5px;
+    right: 15px;
+    transform: rotate(10deg);
+}
+
+/* Mato direito */
+.grass-right {
+    width: 40px;
+    height: 55px;
+    bottom: 20px;
+    right: -5px;
+    transform: scale(1.1) rotate(15deg);
+}
+
+/* Flor esquerda */
+.flower-left {
+    width: 45px;
+    height: 50px;
+    bottom: 25px;
+    left: 10px;
+    transform: rotate(-5deg);
+}
+
+/* Folha superior */
+.leaf-top {
+    width: 40px;
+    height: 45px;
+    top: 15px;
+    right: 25px;
+    transform: rotate(25deg);
+}
+
+/* Pequeno broto */
+.sprout {
+    width: 35px;
+    height: 40px;
+    bottom: 15px;
+    right: 50px;
+    z-index: 2;
+    transform: rotate(-5deg);
+}
+
+.mascot-gif {
+    width: 180px; /* Tamanho aumentado da capivara */
+    height: 180px; /* Altura fixa para garantir tamanho uniforme */
+    border-radius: 15%; /* Reduzido de 50% (círculo) para 15% (cantos arredondados) */
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    cursor: pointer;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    /* Animação de flutuação removida */
+    object-fit: contain; /* Alterado de 'cover' para 'contain' para não cortar a imagem */
+    background-color: rgba(255, 255, 255, 0.2); /* Fundo sutil para destacar o mascote */
+    padding: 5px; /* Espaço interno para que o GIF tenha um pouco de respiro */
+}
+
+.mascot-gif:hover {
+    transform: scale(1.05); /* Efeito de zoom mais sutil, sem rotação */
+}
+
+.mascot-gif:active {
+    transform: scale(0.98);
+}
+
+/* Estilo para quando o mascote está atento a algum elemento decorativo */
+.mascot-gif.attentive {
+    filter: drop-shadow(0 6px 10px rgba(169, 124, 80, 0.5)) brightness(1.1);
+    transition: all 0.3s ease;
+}
+
+/* Efeito de brilho sutíl ao redor do mascote quando interage com elementos */
+.mascot-container:hover::after {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
+/* Bolhas decorativas */
+.bubble {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.7;
+    filter: blur(1px);
+    z-index: -1;
+    animation: bubble-float 15s linear infinite;
+}
+
+.typing-indicator {
+    font-style: italic;
+    color: #997c5d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.typing-indicator::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23997c5d' d='M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z'/%3E%3C/svg%3E");
+    animation: spin 2s linear infinite;
+}
+
+.title {
+    color: #8c6239;
+    margin-bottom: 1.2rem;
+    font-size: 1.8rem;
+    text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.7),
+                 0px 4px 6px rgba(169, 124, 80, 0.2);
+    position: relative;
+    display: inline-block;
+}
+
+.title::after {
+    content: "🌱";
+    position: absolute;
+    font-size: 0.8em;
+    right: -25px;
+    top: -10px;
+    transform: rotate(15deg);
+}
+
+.chat-box {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 1.5rem;
+    height: 240px;
+    overflow-y: auto;
+    padding: 1.2rem;
+    text-align: left;
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    box-shadow: inset 0 4px 8px rgba(169, 124, 80, 0.15),
+                inset 0 -4px 8px rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(169, 124, 80, 0.1);
+    scroll-behavior: smooth;
+    padding-top: 5px; /* Espaço adicional no topo para evitar que o botão sobreponha o conteúdo */
+    position: relative;
+    z-index: 1; /* Menor que o z-index do botão */
+}
+
+/* Estilização da barra de rolagem */
+.chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-box::-webkit-scrollbar-track {
+    background: rgba(255, 240, 220, 0.5);
+    border-radius: 10px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    background: rgba(169, 124, 80, 0.3);
+    border-radius: 10px;
+}
+
+.chat-box::-webkit-scrollbar-thumb:hover {
+    background: rgba(169, 124, 80, 0.5);
+}
+
+.bot-message, .user-message {
+    margin-bottom: 0.8rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 1.2rem;
+    max-width: 85%;
+    word-wrap: break-word;
+    position: relative;
+    line-height: 1.4;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    animation: pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.bot-message {
+    background-color: #f4e3c9;
+    align-self: flex-start;
+    border-bottom-left-radius: 0.4rem;
+    margin-right: auto;
+    border-left: 3px solid #c49b6d;
+}
+
+.bot-message::before {
+    content: "🦫";
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+}
+
+.user-message {
+    background-color: #d8ffe0;
+    margin-left: auto; /* Alinha a mensagem do usuário à direita */
+    text-align: right;
+    border-bottom-right-radius: 0.4rem;
+    border-right: 3px solid #6dc49b;
+}
+
+/* Estilos para os diferentes tipos de mensagens de status */
+.error-message {
+    background-color: #ffe8e8;
+    border-left: 4px solid #ff6b6b;
+    color: #d63031;
+}
+
+.warning-message {
+    background-color: #fff8e8;
+    border-left: 4px solid #ffbe76;
+    color: #e17055;
+}
+
+.success-message {
+    background-color: #e8ffe8;
+    border-left: 4px solid #1dd1a1;
+    color: #10ac84;
+}
+
+/* Estilo para destacar o campo de API inválido */
+#api-key.invalid {
+    border: 2px solid #ff6b6b;
+    background-color: #ffe8e8;
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+form {
+    display: flex;
+    gap: 0.7rem;
+    position: relative;
+}
+
+#user-input {
+    flex: 1;
+    padding: 0.8rem 1.2rem;
+    border-radius: 1.5rem;
+    border: 2px solid rgba(169, 124, 80, 0.2);
+    font-size: 1rem;
+    background: #fffbf6;
+    font-family: 'Baloo 2', cursive;
+    color: #6a4928;
+    box-shadow: 0 4px 8px rgba(169, 124, 80, 0.08),
+                inset 0 2px 3px rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+}
+
+#user-input:focus {
+    outline: none;
+    border-color: rgba(169, 124, 80, 0.4);
+    box-shadow: 0 4px 12px rgba(169, 124, 80, 0.15);
+    transform: translateY(-2px);
+}
+
+#user-input::placeholder {
+    color: #b29a7c;
+    opacity: 0.7;
+}
+
+button {
+    background-color: #a97c50;
+    color: #fff;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-family: 'Baloo 2', cursive;
+    font-weight: 600;
+    box-shadow: 0 4px 0 #8c6239,
+                0 5px 8px rgba(0, 0, 0, 0.15);
+    position: relative;
+    top: 0;
+}
+
+button:hover {
+    background-color: #bf9262;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #8c6239,
+                0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+    top: 4px;
+    transform: translateY(0);
+    box-shadow: 0 0px 0 #8c6239,
+                0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos para configurações */
+.settings-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    background: rgba(255, 255, 255, 0.7);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(169, 124, 80, 0.2);
+    color: #8c6239;
+    z-index: 5;
+}
+
+.settings-icon:hover {
+    transform: rotate(90deg);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 10px rgba(169, 124, 80, 0.3);
+}
+
+.settings-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(169, 124, 80, 0.3);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    animation: fade-in 0.3s ease;
+}
+
+.settings-content {
+    background: linear-gradient(135deg, #fff9f0, #fff5e6);
+    padding: 2.5rem;
+    border-radius: 2rem;
+    width: 80%;
+    max-width: 430px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(169, 124, 80, 0.2),
+                0 0 0 2px rgba(169, 124, 80, 0.05),
+                inset 0 -4px 0 #c49b6d;
+    transform: scale(0.95);
+    animation: pop-up 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 0.1s;
+    opacity: 0;
+}
+
+.close-settings {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #8c6239;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.2s;
+}
+
+.close-settings:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+
+.settings-form {
+    margin-top: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-group::after {
+    content: "🍃";
+    position: absolute;
+    right: -15px;
+    top: -10px;
+    font-size: 1.2rem;
+    opacity: 0.5;
+    transform: rotate(15deg);
+    pointer-events: none;
+}
+
+.form-group:nth-child(2)::after {
+    content: "🔑";
+}
+
+.form-group:nth-child(3)::after {
+    content: "🤖";
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.7rem;
+    color: #8c6239;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 1rem;
+    border: 2px solid rgba(169, 124, 80, 0.2);
+    background: #fffdfb;
+    font-family: 'Baloo 2', cursive;
+    color: #6a4928;
+    font-size: 1rem;
+    transition: all 0.3s;
+    box-shadow: inset 0 2px 4px rgba(169, 124, 80, 0.05);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: rgba(169, 124, 80, 0.5);
+    box-shadow: 0 0 0 3px rgba(169, 124, 80, 0.1);
+}
+
+.security-note {
+    font-size: 0.9rem;
+    color: #997c5d;
+    margin-top: 0.7rem;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    line-height: 1.3;
+}
+
+.security-note::before {
+    content: "🔒";
+    margin-right: 6px;
+    font-style: normal;
+}
+
+.settings-btn {
+    background: linear-gradient(to bottom, #a97c50, #8c6239);
+    color: white;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 1rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1.5rem;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 0 #6a4928,
+                0 6px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    top: 0;
+    transition: all 0.2s;
+}
+
+.settings-btn:hover {
+    background: linear-gradient(to bottom, #bf8c5a, #9c7249);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #6a4928,
+                0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.settings-btn:active {
+    top: 4px;
+    transform: translateY(0);
+    box-shadow: 0 0px 0 #6a4928,
+                0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para o campo da chave API com botão de mostrar/ocultar */
+.api-key-container {
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.api-key-container input {
+    flex: 1;
+    padding-right: 40px; /* Espaço para o botão */
+}
+
+.toggle-visibility {
+    position: absolute;
+    right: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    opacity: 0.6;
+    padding: 2px 8px;
+    transition: opacity 0.3s;
+}
+
+.toggle-visibility:hover {
+    opacity: 1;
+}
+
+/* Estilo para o feedback da chave API */
+.api-key-feedback {
+    font-size: 0.8rem;
+    margin-top: 5px;
+    min-height: 20px;
+    color: #ff6b6b;
+}
+
+/* Estilo para dicas sobre formatos de API */
+.api-key-tips {
+    font-size: 0.75rem;
+    margin-top: 5px;
+    color: #666;
+    background-color: #f9f9f9;
+    padding: 5px 8px;
+    border-radius: 4px;
+    display: none;
+}
+
+.api-key-tips.show {
+    display: block;
+}
+
+/* Estilos para guia de ajuda de API */
+.settings-info {
+    margin: 10px 0;
+    font-size: 0.9rem;
+}
+
+.settings-info details {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 8px;
+    margin-bottom: 15px;
+}
+
+.settings-info summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: #6a4928;
+    padding: 5px;
+}
+
+.settings-info summary:hover {
+    color: #a97c50;
+}
+
+.api-help {
+    padding: 10px 5px;
+    font-size: 0.85rem;
+}
+
+.api-help h4 {
+    margin: 10px 0 5px;
+    color: #6a4928;
+}
+
+.api-help ul {
+    margin: 5px 0;
+    padding-left: 20px;
+}
+
+.api-help li {
+    margin-bottom: 5px;
+}
+
+.api-help a {
+    color: #a97c50;
+    text-decoration: none;
+}
+
+.api-help a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para os poemas da Tomo */
+.bot-message.poem {
+    background: linear-gradient(135deg, #ffe8f7, #e8f4ff);
+    font-style: italic;
+    white-space: pre-line;
+    padding: 1.5rem 1rem;
+    border-left: 4px solid #ffb7c5;
+    border-radius: 1.5rem 1.5rem 1.5rem 0;
+    box-shadow: 0 4px 10px rgba(169, 124, 80, 0.15);
+    text-align: center;
+    line-height: 1.6;
+    margin: 1.5rem 0;
+    position: relative;
+    z-index: 5;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    clear: both;
+}
+
+.bot-message.poem::before {
+    content: "✍️";
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Ajusta o tamanho do texto do poema para garantir legibilidade */
+.bot-message.poem {
+    font-size: 0.95rem;
+    max-width: 100%;
+}
+
+/* Botão de poema */
+.poem-button {
+    position: absolute;
+    top: 15px;
+    right: 60px; /* Aumentado para dar espaço ao botão de configuração */
+    background: linear-gradient(135deg, #ffb7c5, #ff9eb5);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    box-shadow: 0 3px 5px rgba(169, 124, 80, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Baloo 2', cursive;
+    z-index: 10;
+    opacity: 0.8;
+}
+
+.poem-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(169, 124, 80, 0.4);
+    background: linear-gradient(135deg, #ff9eb5, #ff85a2);
+    opacity: 1;
+}
+
+.poem-button.clicked {
+    transform: scale(0.95);
+}
+
+.poem-button.minimized {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    /* Mantém o mesmo posicionamento à direita quando minimizado */
+    right: 60px; /* Consistente com a posição expandida */
+}
+
+@media (max-width: 600px) {
+    .poem-button.minimized {
+        right: 55px; /* Consistente com a posição expandida em telas pequenas */
+    }
+}
+
+.poem-button.minimized .full-text {
+    display: none;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    80% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Ajuste para o botão de poema em telas menores */
+@media (max-width: 600px) {
+    .poem-button {
+        top: 10px;
+        right: 55px; /* Ajustado para evitar sobreposição com o botão de configuração */
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
+}
+
+/* Indicador de status do Gemini API (rate limit) */
+.gemini-status {
+    position: absolute;
+    top: 60px; /* Posicionado abaixo dos botões de configuração e poema */
+    right: 15px;
+    background: rgba(255, 239, 213, 0.95);
+    border-radius: 20px;
+    padding: 5px 10px;
+    box-shadow: 0 2px 5px rgba(169, 124, 80, 0.3);
+    font-size: 0.8rem;
+    color: #8c6239;
+    border: 1px solid rgba(169, 124, 80, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 10;
+    animation: fadeIn 0.5s ease;
+}
+
+.gemini-status-icon {
+    font-size: 1rem;
+    animation: pulse 1.5s infinite;
+}
+
+.gemini-status-text {
+    font-weight: 500;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+        transform: scale(0.95);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 0.5;
+        transform: scale(0.95);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

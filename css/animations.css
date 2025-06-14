@@ -1,0 +1,77 @@
+/* Arquivo de animações para o Tomo-AI */
+
+/* Animação de flutuação para o mascote */
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-8px) rotate(2deg);
+    }
+    50% {
+        transform: translateY(-12px) rotate(0deg);
+    }
+    75% {
+        transform: translateY(-8px) rotate(-2deg);
+    }
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+/* Animação de pulsação da sombra */
+@keyframes shadow-pulse {
+    0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.3;
+        transform: scale(0.85);
+    }
+}
+
+/* Animação para as bolhas */
+@keyframes bubble-float {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(var(--move-x), var(--move-y)) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* Animação para mensagens surgindo */
+@keyframes pop-in {
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animação para o modal de configurações */
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes pop-up {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Animação para o indicador de digitação */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Animação de bounce para botões */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
