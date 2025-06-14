@@ -49,7 +49,7 @@ function getRandomJoke() {
     return capivaraJokes[Math.floor(Math.random() * capivaraJokes.length)];
 }
 
-// Coleção de poemas de capivara para o modelo Gemini 2.0
+// Coleção de poemas de capivara para os modelos Gemini 2.0/2.5 Pro
 const capivaraPoems = [
     `🌿 Poema da Capivara Tomo 🌿
 
@@ -117,9 +117,9 @@ function getRandomPoem() {
     return capivaraPoems[Math.floor(Math.random() * capivaraPoems.length)];
 }
 
-// Função para verificar se o modelo atual é o Gemini 2.0
+// Função para verificar se o modelo atual é Gemini avançado (2.0 ou 2.5)
 function isGemini20() {
-    return apiService === "gemini" && apiModel === "gemini-2.0-pro";
+    return apiService === "gemini" && (apiModel === "gemini-2.0-pro" || apiModel === "gemini-2.5-pro");
 }
 
 // Elementos de configuração
@@ -323,7 +323,7 @@ saveSettings.addEventListener("click", () => {
         return; // Não fecha o modal para que o usuário possa corrigir
     }
     
-    // Verifica se é o Gemini 2.0 - para poemas especiais
+    // Verifica se é o Gemini 2.0/2.5 Pro - para poemas especiais
     const isGemini2Selected = isGemini20();
     
     // Atualiza a visibilidade do botão de poema
@@ -350,10 +350,10 @@ saveSettings.addEventListener("click", () => {
         if (isConnected) {
             addMessage(`Yay! Chave da API configurada para esta sessão usando ${apiService} (${apiModel})! Por segurança, ela não ficará salva quando você fechar o navegador. 🔒✅`, "bot-message success-message");
             
-            // Se for Gemini 2.0, exibe um poema especial
+            // Se for Gemini 2.0/2.5 Pro, exibe um poema especial
             if (isGemini2Selected) {
                 setTimeout(() => {
-                    addMessage(`Nyaa~ Vejo que você está usando o Gemini 2.0 Pro! Sabia que eu adoro fazer poemas com este modelo? Vou compartilhar um poema especial com você! ✨🌸`, "bot-message");
+                    addMessage(`Nyaa~ Vejo que você está usando o Gemini Pro avançado! Sabia que eu adoro fazer poemas com estes modelos? Vou compartilhar um poema especial com você! ✨🌸`, "bot-message");
                     
                     setTimeout(() => {
                         const poem = getRandomPoem();
@@ -462,7 +462,7 @@ apiServiceSelect.addEventListener("change", function() {
 
 // Função para adicionar dica sobre minimizar o botão de poema
 function addPoemButtonTip() {
-    // Só adiciona a dica se o Gemini 2.0 estiver ativo
+    // Só adiciona a dica se o Gemini 2.0/2.5 Pro estiver ativo
     if (isGemini20()) {
         setTimeout(() => {
             addMessage("💡 Dica: O botão de poema fica posicionado ao lado do botão de configurações. Você pode pressionar Alt+Click no botão de poema para minimizá-lo se preferir!", "bot-message");
@@ -628,7 +628,7 @@ async function generateResponse(input) {
         return `Hmm, parece que a chave API está com problemas! ${validation.message} Clique no ícone ⚙️ para configurar novamente. 🦫`;
     }
     
-    // Verifica se o usuário está pedindo um poema com o Gemini 2.0
+    // Verifica se o usuário está pedindo um poema com o Gemini 2.0/2.5 Pro
     const isPoetryRequest = input.toLowerCase().includes("poema") || 
                            input.toLowerCase().includes("poesia") ||
                            input.toLowerCase().includes("verso") ||
@@ -1134,12 +1134,12 @@ document.addEventListener('DOMContentLoaded', function() {
     startFloatingEffect();
 });
 
-// Função para mostrar o botão de poema quando Gemini 2.0 estiver ativo
+// Função para mostrar o botão de poema quando Gemini 2.0/2.5 Pro estiver ativo
 function togglePoemButton() {
     // Verifica se o botão já existe
     let poemButton = document.getElementById("poem-button");
     
-    // Se o modelo for Gemini 2.0 e o botão não existir, cria um
+    // Se o modelo for Gemini 2.0/2.5 Pro e o botão não existir, cria um
     if (isGemini20()) {
         if (!poemButton) {
             // Cria o botão de poema
@@ -1192,7 +1192,7 @@ function togglePoemButton() {
             poemButton.style.display = "block";
         }
     } else if (poemButton) {
-        // Se não for Gemini 2.0 mas o botão existir, esconde
+        // Se não for Gemini 2.0/2.5 Pro mas o botão existir, esconde
         poemButton.style.display = "none";
     }
 }
