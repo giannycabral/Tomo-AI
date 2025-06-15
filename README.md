@@ -2,7 +2,7 @@
 
 Tomo-AI é um chatbot com tema de capivara kawaii que usa a API do Google Gemini para respostas inteligentes e fofas. Este projeto foi projetado como uma demonstração simples de integração com a API Gemini através de um backend seguro.
 
-![Capivara Tomo](/images/capivara1.gif)
+![Image](https://github.com/user-attachments/assets/c5161afb-7718-4c88-b258-757ff2dcd3ec)
 
 ## Sobre o Projeto
 
