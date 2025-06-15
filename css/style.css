@@ -314,18 +314,7 @@ body::before {
     color: #10ac84;
 }
 
-/* Estilo para destacar o campo de API inválido */
-#api-key.invalid {
-    border: 2px solid #ff6b6b;
-    background-color: #ffe8e8;
-    animation: shake 0.5s;
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-    20%, 40%, 60%, 80% { transform: translateX(5px); }
-}
+/* Estilos de validação de API removidos */
 
 form {
     display: flex;
@@ -390,296 +379,9 @@ button:active {
                 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-/* Estilos para configurações */
-.settings-icon {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 1.8rem;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    background: rgba(255, 255, 255, 0.7);
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(169, 124, 80, 0.2);
-    color: #8c6239;
-    z-index: 5;
-}
+/* Estilos de configuração e modal completamente removidos */
 
-.settings-icon:hover {
-    transform: rotate(90deg);
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 4px 10px rgba(169, 124, 80, 0.3);
-}
-
-.settings-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(169, 124, 80, 0.3);
-    backdrop-filter: blur(4px);
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-    animation: fade-in 0.3s ease;
-}
-
-.settings-content {
-    background: linear-gradient(135deg, #fff9f0, #fff5e6);
-    padding: 2.5rem;
-    border-radius: 2rem;
-    width: 80%;
-    max-width: 430px;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(169, 124, 80, 0.2),
-                0 0 0 2px rgba(169, 124, 80, 0.05),
-                inset 0 -4px 0 #c49b6d;
-    transform: scale(0.95);
-    animation: pop-up 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 0.1s;
-    opacity: 0;
-}
-
-.close-settings {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 2rem;
-    cursor: pointer;
-    color: #8c6239;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.8);
-    transition: all 0.2s;
-}
-
-.close-settings:hover {
-    background: rgba(255, 255, 255, 1);
-    transform: scale(1.1);
-}
-
-.settings-form {
-    margin-top: 1.5rem;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-    position: relative;
-}
-
-.form-group::after {
-    content: "🍃";
-    position: absolute;
-    right: -15px;
-    top: -10px;
-    font-size: 1.2rem;
-    opacity: 0.5;
-    transform: rotate(15deg);
-    pointer-events: none;
-}
-
-.form-group:nth-child(2)::after {
-    content: "🔑";
-}
-
-.form-group:nth-child(3)::after {
-    content: "🤖";
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.7rem;
-    color: #8c6239;
-    font-weight: bold;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 0.9rem;
-}
-
-.form-group input,
-.form-group select {
-    width: 100%;
-    padding: 0.8rem 1rem;
-    border-radius: 1rem;
-    border: 2px solid rgba(169, 124, 80, 0.2);
-    background: #fffdfb;
-    font-family: 'Baloo 2', cursive;
-    color: #6a4928;
-    font-size: 1rem;
-    transition: all 0.3s;
-    box-shadow: inset 0 2px 4px rgba(169, 124, 80, 0.05);
-}
-
-.form-group input:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: rgba(169, 124, 80, 0.5);
-    box-shadow: 0 0 0 3px rgba(169, 124, 80, 0.1);
-}
-
-.security-note {
-    font-size: 0.9rem;
-    color: #997c5d;
-    margin-top: 0.7rem;
-    font-style: italic;
-    display: flex;
-    align-items: center;
-    line-height: 1.3;
-}
-
-.security-note::before {
-    content: "🔒";
-    margin-right: 6px;
-    font-style: normal;
-}
-
-.settings-btn {
-    background: linear-gradient(to bottom, #a97c50, #8c6239);
-    color: white;
-    border: none;
-    border-radius: 1.5rem;
-    padding: 1rem;
-    font-size: 1.1rem;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 1.5rem;
-    font-family: 'Baloo 2', cursive;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    box-shadow: 0 4px 0 #6a4928,
-                0 6px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
-    top: 0;
-    transition: all 0.2s;
-}
-
-.settings-btn:hover {
-    background: linear-gradient(to bottom, #bf8c5a, #9c7249);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 0 #6a4928,
-                0 8px 15px rgba(0, 0, 0, 0.15);
-}
-
-.settings-btn:active {
-    top: 4px;
-    transform: translateY(0);
-    box-shadow: 0 0px 0 #6a4928,
-                0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilos para o campo da chave API com botão de mostrar/ocultar */
-.api-key-container {
-    display: flex;
-    position: relative;
-    align-items: center;
-}
-
-.api-key-container input {
-    flex: 1;
-    padding-right: 40px; /* Espaço para o botão */
-}
-
-.toggle-visibility {
-    position: absolute;
-    right: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    opacity: 0.6;
-    padding: 2px 8px;
-    transition: opacity 0.3s;
-}
-
-.toggle-visibility:hover {
-    opacity: 1;
-}
-
-/* Estilo para o feedback da chave API */
-.api-key-feedback {
-    font-size: 0.8rem;
-    margin-top: 5px;
-    min-height: 20px;
-    color: #ff6b6b;
-}
-
-/* Estilo para dicas sobre formatos de API */
-.api-key-tips {
-    font-size: 0.75rem;
-    margin-top: 5px;
-    color: #666;
-    background-color: #f9f9f9;
-    padding: 5px 8px;
-    border-radius: 4px;
-    display: none;
-}
-
-.api-key-tips.show {
-    display: block;
-}
-
-/* Estilos para guia de ajuda de API */
-.settings-info {
-    margin: 10px 0;
-    font-size: 0.9rem;
-}
-
-.settings-info details {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 8px;
-    margin-bottom: 15px;
-}
-
-.settings-info summary {
-    cursor: pointer;
-    font-weight: bold;
-    color: #6a4928;
-    padding: 5px;
-}
-
-.settings-info summary:hover {
-    color: #a97c50;
-}
-
-.api-help {
-    padding: 10px 5px;
-    font-size: 0.85rem;
-}
-
-.api-help h4 {
-    margin: 10px 0 5px;
-    color: #6a4928;
-}
-
-.api-help ul {
-    margin: 5px 0;
-    padding-left: 20px;
-}
-
-.api-help li {
-    margin-bottom: 5px;
-}
-
-.api-help a {
-    color: #a97c50;
-    text-decoration: none;
-}
-
-.api-help a:hover {
-    text-decoration: underline;
-}
+/* Estilos de validação e ajuda de API removidos */
 
 /* Estilo para os poemas da Tomo */
 .bot-message.poem {
@@ -718,7 +420,7 @@ button:active {
 .poem-button {
     position: absolute;
     top: 15px;
-    right: 60px; /* Aumentado para dar espaço ao botão de configuração */
+    right: 15px; /* Ajustado após remoção do botão de configuração */
     background: linear-gradient(135deg, #ffb7c5, #ff9eb5);
     color: white;
     border: none;
@@ -753,13 +455,13 @@ button:active {
     align-items: center;
     justify-content: center;
     font-size: 16px;
-    /* Mantém o mesmo posicionamento à direita quando minimizado */
-    right: 60px; /* Consistente com a posição expandida */
+    /* Centralizar quando minimizado */
+    right: 15px;
 }
 
 @media (max-width: 600px) {
     .poem-button.minimized {
-        right: 55px; /* Consistente com a posição expandida em telas pequenas */
+        right: 10px;
     }
 }
 
@@ -785,16 +487,18 @@ button:active {
 @media (max-width: 600px) {
     .poem-button {
         top: 10px;
-        right: 55px; /* Ajustado para evitar sobreposição com o botão de configuração */
+        right: 10px;
         font-size: 0.75rem;
         padding: 5px 10px;
     }
 }
 
+/* Estilos de teste de API removidos */
+
 /* Indicador de status do Gemini API (rate limit) */
 .gemini-status {
     position: absolute;
-    top: 60px; /* Posicionado abaixo dos botões de configuração e poema */
+    top: 55px; /* Posicionado abaixo apenas do botão de poema */
     right: 15px;
     background: rgba(255, 239, 213, 0.95);
     border-radius: 20px;
