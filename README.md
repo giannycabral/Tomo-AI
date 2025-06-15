@@ -11,6 +11,15 @@ Tomo é uma capivara fofa e amigável que oferece:
 - Piadas sobre capivaras
 - Interface amigável e adorável
 
+## Tecnologias Utilizadas
+
+- **Frontend:** HTML, CSS e JavaScript puro
+- **Backend:** Node.js, Express
+- **API:** Google Gemini
+- **Comunicação:** Fetch API
+- **Armazenamento Seguro:** Variáveis de ambiente
+- **Estilo:** Animações CSS para efeitos kawaii
+
 ## Como Executar o Projeto
 
 ### 1. Configurar o Backend
@@ -74,37 +83,6 @@ tomo-ai/
     └── .env              # Configurações e chave API (não incluída no git)
 ```
 
-## Backend: Por Que é Necessário?
-
-Por razões de segurança, as APIs do Google Gemini não permitem chamadas diretas do navegador (client-side). Isso protege sua chave API de ser exposta publicamente.
-
-O backend implementado resolve este problema, atuando como intermediário seguro entre seu frontend e a API Gemini. Seu fluxo de trabalho é:
-
-1. O usuário envia uma mensagem no navegador
-2. O frontend envia esta mensagem para o backend local
-3. O backend usa a chave API armazenada com segurança para chamar a API Gemini
-4. A resposta é enviada de volta para o frontend
-
-## Personalização
-
-### Modelos Disponíveis
-
-O backend está configurado para suportar vários modelos Gemini:
-- Gemini Pro
-- Gemini 1.5 Pro 
-- Gemini 1.5 Flash
-
-Você pode adicionar mais modelos editando o seletor no arquivo `index.html`.
-
 ### Personalidade do Tomo
 
 A personalidade da capivara pode ser ajustada editando a constante `tomoPersonality` no arquivo `backend/server.js`.
-
-## Tecnologias Utilizadas
-
-- **Frontend:** HTML, CSS e JavaScript puro
-- **Backend:** Node.js, Express
-- **API:** Google Gemini
-- **Comunicação:** Fetch API
-- **Armazenamento Seguro:** Variáveis de ambiente
-- **Estilo:** Animações CSS para efeitos kawaii
