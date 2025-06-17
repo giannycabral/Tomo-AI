@@ -2,7 +2,7 @@
 
 <div align="center">
   
-  ![Tomo-AI Banner](https://github.com/user-attachments/assets/c5161afb-7718-4c88-b258-757ff2dcd3ec)
+  ![Tomo-AI Banner](https://github.com/user-attachments/assets/08090d5a-70f6-4e95-854c-0d957327b7bd)
   
   *Um chatbot kawaii com tema de capivara usando a API Google Gemini para conversas fofas e inteligentes*
   
