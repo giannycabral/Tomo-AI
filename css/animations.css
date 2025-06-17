@@ -34,11 +34,14 @@
 /* Animação para as bolhas */
 @keyframes bubble-float {
     0% {
-        transform: translate(0, 0) scale(1);
-        opacity: 0.7;
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+    10% {
+        opacity: var(--bubble-opacity, 0.7);
     }
     100% {
-        transform: translate(var(--move-x), var(--move-y)) scale(0.5);
+        transform: translate(var(--move-x, 100px), var(--move-y, -150px));
         opacity: 0;
     }
 }
@@ -74,4 +77,44 @@
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-5px); }
+}
+
+/* Animação de brilho para elementos decorativos */
+@keyframes glowing {
+    0%, 100% {
+        filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0));
+    }
+    50% {
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7));
+    }
+}
+
+/* Animação para elementos decorativos que flutuam */
+@keyframes float-gentle {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Animação para decorações especiais */
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0.2;
+        filter: blur(2px);
+    }
+    50% {
+        opacity: 0.8;
+        filter: blur(0px);
+    }
+}
+
+/* Aplica animações aos elementos específicos */
+.flower-top-center .svg-decoration,
+.sprout-form-right .svg-decoration,
+.flower-chat-right .svg-decoration,
+.leaf-chat-left-bottom .svg-decoration {
+    animation: glowing 5s ease-in-out infinite alternate;
 }

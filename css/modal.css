@@ -1,0 +1,553 @@
+/* Estilos para o modal de configuração */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(3px);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    position: relative;
+    background: linear-gradient(135deg, #fff9f0, #fffdf5);
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 32px rgba(169, 124, 80, 0.2), 
+                inset 0 -4px 0 rgba(169, 124, 80, 0.1),
+                0 -8px 20px rgba(255, 255, 255, 0.3);
+    width: 90%;
+    max-width: 400px;
+    animation: pop-in 0.5s cubic-bezier(0.26, 1.46, 0.46, 1) forwards;
+    border: 2px solid rgba(169, 124, 80, 0.15);
+    overflow: hidden;
+}
+
+/* Animação para o modal aparecer */
+@keyframes pop-in {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    70% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Título e textos do modal */
+.modal-content h2 {
+    color: #8c6239;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.modal-content p {
+    color: #6a4928;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.info-text {
+    font-size: 0.85rem !important;
+    opacity: 0.7;
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+/* Estilos para o campo de entrada da chave API */
+.api-key-input-container {
+    display: flex;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+#api-key-input {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border-radius: 1rem;
+    border: 2px solid rgba(169, 124, 80, 0.2);
+    background-color: white;
+    font-family: 'Baloo 2', cursive;
+    font-size: 0.95rem;
+    color: #6a4928;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#api-key-input:focus {
+    border-color: rgba(169, 124, 80, 0.4);
+    box-shadow: 0 0 0 3px rgba(255, 195, 161, 0.3);
+}
+
+#toggle-api-key-visibility {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #8c6239;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+#toggle-api-key-visibility:hover {
+    opacity: 1;
+}
+
+/* Estilos para a seleção de modelo */
+.model-selection {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 1rem;
+    border: 1px dashed rgba(169, 124, 80, 0.3);
+}
+
+.model-selection label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #8c6239;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.model-select {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border-radius: 0.8rem;
+    border: 1px solid rgba(169, 124, 80, 0.2);
+    background-color: white;
+    font-family: 'Baloo 2', cursive;
+    color: #6a4928;
+    font-size: 0.95rem;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6"><path fill="%238c6239" d="M0 0l6 6 6-6z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+}
+
+.model-select:focus {
+    border-color: rgba(169, 124, 80, 0.4);
+    box-shadow: 0 0 0 3px rgba(255, 195, 161, 0.3);
+}
+
+.model-info {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #8c6239;
+    opacity: 0.7;
+    font-style: italic;
+}
+
+/* Botões do modal */
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 1.5rem 0 1rem;
+}
+
+.modal-buttons button {
+    flex: 1;
+    padding: 0.8rem;
+    border-radius: 1rem;
+    border: none;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #6a4928;
+}
+
+#save-api-key {
+    background: linear-gradient(to bottom, #ACDEA5, #8CC084);
+    box-shadow: 0 3px 0 #75A562,
+                0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+#save-api-key:hover {
+    background: linear-gradient(to bottom, #B5E6AE, #97CA8E);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 #75A562,
+                0 6px 6px rgba(0, 0, 0, 0.1);
+}
+
+#clear-api-key {
+    background: linear-gradient(to bottom, #FFD1C4, #FFAE9D);
+    box-shadow: 0 3px 0 #FF9C84,
+                0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+#clear-api-key:hover {
+    background: linear-gradient(to bottom, #FFDCD1, #FFBCAF);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 #FF9C84,
+                0 6px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-buttons button:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #75A562,
+                0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Status de conexão API */
+.api-status {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.8rem;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(169, 124, 80, 0.1);
+    font-size: 0.85rem;
+    color: #6a4928;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ccc;
+}
+
+.status-indicator.connected {
+    background-color: #8CC084;
+    box-shadow: 0 0 5px rgba(140, 192, 132, 0.8);
+}
+
+.status-indicator.disconnected {
+    background-color: #FF9C84;
+    box-shadow: 0 0 5px rgba(255, 156, 132, 0.8);
+}
+
+.status-indicator.pending {
+    background-color: #FFD166;
+    box-shadow: 0 0 5px rgba(255, 209, 102, 0.8);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Botão de fechamento */
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #8c6239;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.7;
+    transition: all 0.3s;
+}
+
+.close-modal:hover {
+    color: #6a4928;
+    opacity: 1;
+    transform: rotate(90deg);
+}
+
+/* Melhor posicionamento para a decoração do modal */
+.modal-flower {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    transform: scale(0.7);
+    opacity: 0.7;
+    z-index: 0;
+}
+
+/* Adiciona novas decorações no modal */
+.modal-leaf {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    transform: scale(0.6) rotate(-30deg);
+    opacity: 0.7;
+    z-index: 0;
+}
+
+.modal-sprout {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    transform: scale(0.5);
+    opacity: 0.7;
+    z-index: 0;
+}
+
+/* Botão de configurações */
+.settings-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #FFF9F0, #FFFDF5);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(169, 124, 80, 0.15), 
+                inset 0 -2px 0 rgba(169, 124, 80, 0.05);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(169, 124, 80, 0.1);
+    z-index: 10;
+    /* Adiciona um sutil brilho para destacar na posição superior */
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+
+.settings-button::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.settings-button:hover {
+    transform: rotate(30deg) scale(1.1);
+    box-shadow: 0 4px 12px rgba(169, 124, 80, 0.25), 
+                inset 0 -2px 0 rgba(169, 124, 80, 0.1);
+}
+
+.settings-button:hover::before {
+    opacity: 0.8;
+}
+
+.settings-button:active {
+    transform: scale(0.95);
+}
+
+.settings-button span {
+    font-size: 1.4rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* Folha decorativa do botão de configuração */
+.settings-decoration {
+    position: absolute;
+    top: -10px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    z-index: 1;
+    transform: rotate(30deg);
+    opacity: 0.8;
+    transition: all 0.3s;
+    pointer-events: none;
+}
+
+.settings-button:hover .settings-decoration {
+    transform: rotate(-45deg) scale(1.2);
+}
+
+.small-decoration {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Pequena animação de brilho para chamar atenção para o botão de configuração */
+@keyframes settings-glow {
+    0%, 100% {
+        box-shadow: 0 3px 12px rgba(255, 156, 132, 0.5), 
+                    inset 0 -2px 0 rgba(169, 124, 80, 0.1),
+                    0 0 15px rgba(255, 195, 161, 0.5);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 4px 18px rgba(255, 99, 71, 0.6), 
+                    inset 0 -2px 0 rgba(169, 124, 80, 0.2),
+                    0 0 25px rgba(255, 99, 71, 0.7);
+        transform: scale(1.08);
+    }
+}
+
+/* Aplica a animação de brilho quando não há chave API configurada */
+.settings-button.needs-config {
+    animation: settings-glow 2s infinite ease-in-out;
+    box-shadow: 0 3px 15px rgba(255, 156, 132, 0.7), 
+                inset 0 -2px 0 rgba(169, 124, 80, 0.1),
+                0 0 20px rgba(255, 156, 132, 0.6);
+    border-color: rgba(255, 156, 132, 0.5);
+    background-color: rgba(255, 235, 230, 0.95);
+}
+
+/* Adiciona um pequeno indicador visual quando precisa de configuração */
+.settings-button.needs-config::before {
+    content: "!";
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    width: 20px;
+    height: 20px;
+    background-color: #FF6347;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    border: 2px solid white;
+    animation: pulse 1s infinite ease-in-out alternate;
+    z-index: 3;
+}
+
+/* Tooltip para o modal */
+.modal-tooltip {
+    position: fixed;
+    padding: 0.6rem 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    color: #6a4928;
+    font-family: 'Baloo 2', cursive;
+    font-size: 0.9rem;
+    z-index: 200;
+    transform: translateX(-50%);
+    width: auto;
+    max-width: 200px;
+    text-align: center;
+    border: 1px solid rgba(169, 124, 80, 0.2);
+    animation: tooltip-pop 0.3s ease-out forwards;
+    transition: opacity 0.5s;
+}
+
+.modal-tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid rgba(255, 255, 255, 0.95);
+}
+
+@keyframes tooltip-pop {
+    0% {
+        transform: translateX(-50%) translateY(10px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Tooltip para o botão de configurações */
+.settings-tooltip {
+    position: absolute;
+    top: 100%;
+    right: -20px; /* Posiciona mais à direita para melhor visibilidade */
+    background: rgba(255, 255, 255, 0.95);
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    color: #8c6239;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(5px);
+    pointer-events: none;
+    transition: all 0.3s;
+    margin-top: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(169, 124, 80, 0.2);
+    max-width: 180px;
+    width: max-content;
+    text-align: center;
+}
+
+/* Estilo especial para o tooltip quando precisa de configuração */
+.settings-button.needs-config .settings-tooltip {
+    background: rgba(255, 240, 235, 0.98);
+    border-color: rgba(255, 156, 132, 0.4);
+    color: #e55039;
+    font-weight: bold;
+    padding: 0.6rem 0.9rem;
+    box-shadow: 0 4px 12px rgba(255, 156, 132, 0.3);
+}
+
+.settings-tooltip::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid rgba(255, 255, 255, 0.95);
+}
+
+.settings-button:hover .settings-tooltip {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Tooltip aparece apenas no hover, mesmo quando precisa de configuração */
+.settings-button.needs-config:hover .settings-tooltip {
+    opacity: 1;
+    transform: translateY(0) scale(1.05);
+    font-weight: bold;
+    z-index: 20;
+}
+
+/* Removida a animação de flutuação constante */
+
+/* Responsividade para telas menores */
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 1.5rem;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .modal-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

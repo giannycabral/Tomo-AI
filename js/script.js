@@ -2,9 +2,109 @@ const chatForm = document.getElementById("chat-form");
 const userInput = document.getElementById("user-input");
 const chatBox = document.getElementById("chat");
 
+// Elementos do modal de API
+const apiKeyModal = document.getElementById("api-key-modal");
+const apiKeyInput = document.getElementById("api-key-input");
+const showApiKeyModal = document.getElementById("show-api-key-modal");
+const closeModal = document.querySelector(".close-modal");
+const saveApiKeyBtn = document.getElementById("save-api-key");
+const clearApiKeyBtn = document.getElementById("clear-api-key");
+const toggleApiKeyVisibility = document.getElementById("toggle-api-key-visibility");
+const apiStatus = document.getElementById("api-status");
+const modelSelect = document.getElementById("model-select");
+
+// Chave de armazenamento para sessionStorage
+const API_KEY_STORAGE = "tomo_gemini_api_key";
+const API_MODEL_STORAGE = "tomo_gemini_model";
+
 // Configuração fixa da API - não requer chave no frontend
 const apiService = "gemini"; // Utilizamos apenas Gemini
-const apiModel = "gemini-pro"; // Modelo padrão fixo
+
+// Modelos disponíveis (conforme documentação oficial do Google - junho/2025)
+const API_MODELS = {
+  DEFAULT: "gemini-1.5-pro",   // Modelo padrão com boa qualidade/preço
+  FAST: "gemini-2.0-flash",    // Modelo mais novo e rápido
+  LEGACY: "gemini-pro",        // Modelo da geração anterior (fallback)
+  VISION: "gemini-1.5-pro-vision" // Modelo com capacidades de visão (se implementarmos no futuro)
+};
+
+// Modelo atual - use API_MODELS.FAST se preferir o modelo mais rápido
+const apiModel = API_MODELS.DEFAULT;
+
+// Funções para gerenciar modelo selecionado
+function getStoredModel() {
+    return sessionStorage.getItem(API_MODEL_STORAGE) || API_MODELS.DEFAULT;
+}
+
+function saveSelectedModel(model) {
+    sessionStorage.setItem(API_MODEL_STORAGE, model);
+}
+
+// Verifica se existe uma chave API salva na sessão
+function getStoredApiKey() {
+    return sessionStorage.getItem(API_KEY_STORAGE);
+}
+
+// Salva a chave API na sessão
+function saveApiKey(key) {
+    if (key && key.trim() !== "") {
+        sessionStorage.setItem(API_KEY_STORAGE, key.trim());
+        return true;
+    }
+    return false;
+}
+
+// Remove a chave API da sessão
+function clearApiKey() {
+    sessionStorage.removeItem(API_KEY_STORAGE);
+}
+
+// Verifica se a chave API é válida
+async function validateApiKey(apiKey) {
+    if (!apiKey || apiKey.trim() === "") {
+        updateApiStatus("Chave API não fornecida", false);
+        return false;
+    }
+
+    try {
+        updateApiStatus("Verificando...", "pending");
+        
+        // URL do backend
+        const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+            ? `http://${window.location.hostname}:3000` 
+            : '';
+            
+        const response = await fetch(`${BACKEND_URL}/api/status?apiKey=${encodeURIComponent(apiKey)}`);
+        const data = await response.json();
+        
+        if (data.status === "online") {
+            updateApiStatus("Conectado ✓", true);
+            return true;
+        } else {
+            updateApiStatus("Chave inválida ou erro de conexão ✗", false);
+            return false;
+        }
+    } catch (error) {
+        console.error("Erro ao validar chave API:", error);
+        updateApiStatus("Erro de conexão ✗", false);
+        return false;
+    }
+}
+
+// Atualiza o indicador de status da API
+function updateApiStatus(message, status) {
+    const statusIndicator = apiStatus.querySelector(".status-indicator");
+    const statusText = apiStatus.querySelector("span");
+    
+    if (status === "pending") {
+        statusIndicator.className = "status-indicator pending";
+    } else {
+        statusIndicator.className = "status-indicator " + (status ? "connected" : "disconnected");
+    }
+    
+    statusText.textContent = message;
+    apiStatus.style.display = "flex";
+}
 
 // Coleção de piadas de capivara para o Tomo contar
 const capivaraJokes = [
@@ -25,11 +125,9 @@ function getRandomJoke() {
     return capivaraJokes[Math.floor(Math.random() * capivaraJokes.length)];
 }
 
-// Comentário removido - apiModel já está definido acima
-
 // Configuração do GIF da capivara
 const mascotGif = document.getElementById("capivara-gif");
-// Define o caminho para o GIF da capivara, compatível com acesso direto ou via servidor
+// Defines o caminho para o GIF da capivara, compatível com acesso direto ou via servidor
 const baseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
     ? '/' 
     : './';
@@ -62,18 +160,117 @@ mascotGif.onerror = function() {
     };
 };
 
-// Código de configurações removido
+// Event listeners para o modal de API
+showApiKeyModal.addEventListener("click", () => {
+    // Preenche o input com a chave salva (se houver)
+    const savedKey = getStoredApiKey();
+    if (savedKey) {
+        apiKeyInput.value = savedKey;
+        validateApiKey(savedKey);
+    } else {
+        updateApiStatus("Nenhuma chave configurada", false);
+    }
+    
+    // Seleciona o modelo anteriormente salvo (se houver)
+    const savedModel = getStoredModel();
+    modelSelect.value = savedModel;
+    
+    // Mostra o modal com animação
+    apiKeyModal.style.display = "flex";
+    
+    // Inicializa interações com elementos decorativos do modal
+    initModalDecorations();
+});
 
-// Código de verificação de backend removido
+closeModal.addEventListener("click", () => {
+    apiKeyModal.style.display = "none";
+});
 
-// Código de verificação de chave API removido
+// Fecha o modal quando clicar fora dele
+window.addEventListener("click", (e) => {
+    if (e.target === apiKeyModal) {
+        apiKeyModal.style.display = "none";
+    }
+});
 
-// Código de toggle de API removido
+// Toggle para mostrar/esconder a chave API
+toggleApiKeyVisibility.addEventListener("click", () => {
+    if (apiKeyInput.type === "password") {
+        apiKeyInput.type = "text";
+        toggleApiKeyVisibility.textContent = "🔒";
+    } else {
+        apiKeyInput.type = "password";
+        toggleApiKeyVisibility.textContent = "👁️";
+    }
+});
+
+// Salvar a chave API quando clicar no botão
+saveApiKeyBtn.addEventListener("click", async () => {
+    const apiKey = apiKeyInput.value.trim();
+    if (apiKey === "") {
+        updateApiStatus("Por favor, insira uma chave API", false);
+        return;
+    }
+    
+    const isValid = await validateApiKey(apiKey);
+    if (isValid) {
+        // Salva a chave API e o modelo selecionado
+        saveApiKey(apiKey);
+        saveSelectedModel(modelSelect.value);
+        
+        // Mostra mensagem de confirmação
+        const modelName = modelSelect.options[modelSelect.selectedIndex].text.split(' ')[0] + ' ' + 
+                          modelSelect.options[modelSelect.selectedIndex].text.split(' ')[1];
+        addMessage(`Nyaa~ Chave API configurada com sucesso! Usando modelo ${modelName}! Agora posso conversar melhor! ✨`, "bot-message");
+        
+        setTimeout(() => {
+            apiKeyModal.style.display = "none";
+        }, 1500);
+    }
+});
+
+// Limpar a chave API
+clearApiKeyBtn.addEventListener("click", () => {
+    apiKeyInput.value = "";
+    clearApiKey();
+    updateApiStatus("Chave API removida", false);
+});
 
 chatForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const userText = userInput.value;
     if (userText.trim() === "") return; // Não envia mensagens vazias
+    
+    // Verifica se a chave API está configurada antes de enviar
+    const apiKey = getStoredApiKey();
+    if (!apiKey) {
+        // Destaca o botão de configurações com animação de pulso
+        const settingsButton = document.getElementById("show-api-key-modal");
+        settingsButton.classList.add("needs-config");
+        
+        // Animação para chamar a atenção
+        settingsButton.animate([
+            { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(255, 99, 71, 0.7)' },
+            { transform: 'scale(1.2)', boxShadow: '0 0 0 15px rgba(255, 99, 71, 0)' },
+            { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(255, 99, 71, 0)' }
+        ], {
+            duration: 1500,
+            iterations: 3
+        });
+        
+        // Adiciona a mensagem do usuário
+        addMessage(userText, "user-message");
+        userInput.value = "";
+        
+        // Mostra o modal de configuração da API após um pequeno delay
+        setTimeout(() => {
+            showApiKeyModal.click();
+        }, 800);
+        
+        // Adiciona uma mensagem informativa mais destacada
+        addMessage("🔑 Ops! Precisamos configurar sua chave API do Google Gemini antes de eu poder responder. Por favor, insira sua chave API no formulário que apareceu. Sem ela, eu não consigo pensar direito! 🌸", "bot-message");
+        return; // Interrompe o envio da mensagem
+    }
     
     addMessage(userText, "user-message");
     userInput.value = "";
@@ -140,6 +337,141 @@ function createBubbles() {
     }
 }
 
+// Adiciona interatividade a todos os elementos decorativos
+function initDecorationInteractions() {
+    const decorations = document.querySelectorAll('.decoration');
+    
+    decorations.forEach(decoration => {
+        decoration.addEventListener('click', function() {
+            // Adiciona a classe animada ao SVG
+            const svgElement = this.querySelector('.svg-decoration');
+            svgElement.classList.add('animated');
+            
+            // Pequena chance de mostrar uma mensagem fofa
+            if (Math.random() < 0.2) {
+                const messages = [
+                    "Nyaa~ Que fofinho, você gosta de flores! 🌸",
+                    "Hehe~ As plantas ficam felizes quando você interage com elas! 🌿",
+                    "Aww, natureza é tão relaxante, não é? 🍃",
+                    "Você encontrou uma de minhas plantas favoritas! 🌱",
+                    "Essa florzinha está sorrindo para você! ✿◠‿◠",
+                ];
+                addMessage(messages[Math.floor(Math.random() * messages.length)], "bot-message");
+            }
+            
+            // Remove a classe após a animação
+            setTimeout(() => {
+                svgElement.classList.remove('animated');
+            }, 1000);
+            
+            // Cria mini bolhas
+            createMiniBubbles(this);
+        });
+    });
+}
+
+// Inicializa as decorações do modal
+function initModalDecorations() {
+    const modalDecorations = document.querySelectorAll('.modal-content .decoration');
+    modalDecorations.forEach(decoration => {
+        // Remove handlers anteriores
+        decoration.replaceWith(decoration.cloneNode(true));
+    });
+    
+    // Reinicializa os event listeners para as decorações do modal
+    document.querySelectorAll('.modal-content .decoration').forEach(decoration => {
+        decoration.addEventListener('click', function(e) {
+            e.stopPropagation(); // Evita que o clique feche o modal
+            
+            // Adiciona a classe animada ao SVG
+            const svgElement = this.querySelector('.svg-decoration');
+            svgElement.classList.add('animated');
+            
+            // Pequena chance de mostrar uma mensagem sobre configurações
+            if (Math.random() < 0.3) {
+                const messages = [
+                    "Lembre-se de salvar sua configuração! 💾",
+                    "Obrigada por configurar minha API! 🌸",
+                    "Com uma chave API, posso te ajudar melhor! ✨",
+                    "O modelo mais rápido é o Gemini 2.0 Flash! ⚡",
+                    "Sua chave só fica salva no navegador atual! 🔒"
+                ];
+                // Mostra uma mensagem flutuante no modal
+                showModalTooltip(messages[Math.floor(Math.random() * messages.length)], decoration);
+            }
+            
+            // Remove a classe após a animação
+            setTimeout(() => {
+                svgElement.classList.remove('animated');
+            }, 1000);
+            
+            // Cria mini bolhas
+            createMiniBubbles(this, true);
+        });
+    });
+}
+
+// Função para mostrar tooltip flutuante no modal
+function showModalTooltip(message, element) {
+    const tooltip = document.createElement("div");
+    tooltip.className = "modal-tooltip";
+    tooltip.textContent = message;
+    
+    // Posiciona o tooltip
+    const rect = element.getBoundingClientRect();
+    tooltip.style.top = `${rect.top - 40}px`;
+    tooltip.style.left = `${rect.left + (rect.width / 2)}px`;
+    
+    // Adiciona à página
+    document.body.appendChild(tooltip);
+    
+    // Remove após alguns segundos
+    setTimeout(() => {
+        tooltip.style.opacity = "0";
+        setTimeout(() => document.body.removeChild(tooltip), 500);
+    }, 3000);
+}
+
+// Cria mini bolhas ao redor de elementos decorativos quando clicados
+function createMiniBubbles(element, isModal = false) {
+    const rect = element.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    const count = isModal ? 3 : 5; // Menos bolhas no modal para evitar poluição visual
+    const maxSize = isModal ? 8 : 10; // Bolhas menores no modal
+    
+    for (let i = 0; i < count; i++) {
+        const size = Math.random() * maxSize + 5;
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        bubble.style.width = `${size}px`;
+        bubble.style.height = `${size}px`;
+        
+        // Posição inicial no elemento
+        bubble.style.left = `${centerX}px`;
+        bubble.style.top = `${centerY}px`;
+        
+        // Movimento aleatório
+        bubble.style.setProperty('--move-x', `${(Math.random() * 60) - 30}px`);
+        bubble.style.setProperty('--move-y', `${-Math.random() * 60 - 20}px`);
+        
+        // Atraso de animação
+        bubble.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        bubble.style.opacity = Math.random() * 0.5 + 0.3;
+        
+        // Adicionar à página e remover depois
+        document.body.appendChild(bubble);
+        
+        // Remove a bolha após a animação
+        setTimeout(() => {
+            if (document.body.contains(bubble)) {
+                document.body.removeChild(bubble);
+            }
+        }, 3000);
+    }
+}
+
 function showTypingIndicator() {
     const typingMsg = document.createElement("div");
     typingMsg.className = "bot-message typing-indicator";
@@ -148,8 +480,6 @@ function showTypingIndicator() {
     chatBox.scrollTop = chatBox.scrollHeight;
     return typingMsg;
 }
-
-// Função de validação de chave API removida
 
 // URL do backend
 const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
@@ -168,6 +498,10 @@ async function generateResponse(input) {
     }
     
     try {
+        // Obtém a chave API e modelo armazenados
+        const apiKey = getStoredApiKey();
+        const selectedModel = getStoredModel();
+        
         // Enviar requisição para o backend
         const response = await fetch(`${BACKEND_URL}/api/chat`, {
             method: "POST",
@@ -176,16 +510,23 @@ async function generateResponse(input) {
             },
             body: JSON.stringify({
                 input: input,
-                model: apiModel
+                model: selectedModel,
+                apiKey: apiKey // Envia a chave API para o backend
             })
         });
         
+        const data = await response.json();
+        
         if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.error || `Erro na API: ${response.status}`);
+            // Verificar se precisa de chave API
+            if (data.needsApiKey) {
+                // Mostra o modal para inserir a chave API
+                showApiKeyModal.click();
+                return "Nyaa~ Precisamos de uma chave API do Google Gemini para conversar. Por favor, clique em ⚙️ e configure sua chave! 🌱";
+            }
+            throw new Error(data.error || `Erro na API: ${response.status}`);
         }
         
-        const data = await response.json();
         return data.text;
     } catch (error) {
         console.error("Erro na API:", error);
@@ -205,8 +546,6 @@ async function generateResponse(input) {
     }
 }
 
-// Função de teste de conexão com o backend removida
-
 // Eventos para a capivara
 mascotGif.addEventListener("click", () => {
     createBubbles();
@@ -219,17 +558,123 @@ mascotGif.addEventListener("click", () => {
             "Nyaa~ Você me fez cócegas! 🌿",
             "Hehe~ Olá amigo! Como posso te ajudar hoje? ✨",
             "Aww, adoro quando conversamos! 💫",
-            "Que bom te ver novamente! O que vamos aprender hoje? ��",
-            "Pyon! Está precisando de ajuda? ��"
+            "Que bom te ver novamente! O que vamos aprender hoje? 🌱",
+            "Pyon! Está precisando de ajuda? 🌸",
+            "Nossa, você gosta mesmo de capivaras, né? 💕",
+            "Estou cercada de plantas tão bonitas! 🌼",
+            "Olha só quanta decoração fofa! Obrigada por deixar meu espaço tão bonito! 🍃"
         ];
         addMessage(messages[Math.floor(Math.random() * messages.length)], "bot-message");
     }
+    
+    // Chama a atenção para um elemento decorativo aleatório
+    highlightRandomDecoration();
 });
 
-// Mensagem de boas-vindas simples
-if (chatBox.children.length <= 1) {
-    // Adiciona um pequeno atraso para uma experiência mais natural
-    setTimeout(() => {
-        addMessage("Bem-vindo(a)! Sou Tomo, sua amiga capivara. Vamos conversar? 🌿", "bot-message");
-    }, 500);
+// Destaca um elemento decorativo aleatório
+function highlightRandomDecoration() {
+    const decorations = document.querySelectorAll('.decoration');
+    if (decorations.length > 0) {
+        // Remove destaque anterior
+        document.querySelectorAll('.decoration--highlight').forEach(el => {
+            el.classList.remove('decoration--highlight');
+        });
+        
+        // Adiciona destaque a um elemento aleatório
+        const randomIndex = Math.floor(Math.random() * decorations.length);
+        const randomDecoration = decorations[randomIndex];
+        randomDecoration.classList.add('decoration--highlight');
+        
+        // Adiciona pulsar suave
+        const svgElement = randomDecoration.querySelector('.svg-decoration');
+        svgElement.classList.add('animated');
+        
+        // Remove após alguns segundos
+        setTimeout(() => {
+            randomDecoration.classList.remove('decoration--highlight');
+            svgElement.classList.remove('animated');
+        }, 3000);
+    }
 }
+
+// Inicializa as interações quando o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', function() {
+    // Verificar se a imagem da capivara carregou
+    const mascotGif = document.getElementById('capivara-gif');
+    console.log('Status de carregamento da imagem:', {
+        complete: mascotGif.complete,
+        naturalHeight: mascotGif.naturalHeight,
+        naturalWidth: mascotGif.naturalWidth,
+        src: mascotGif.src
+    });
+    
+    // Inicializa interações com elementos decorativos
+    initDecorationInteractions();
+    
+    // Verificar caminhos absolutos
+    const baseUrl = window.location.origin;
+    console.log('Base URL:', baseUrl);
+    console.log('Caminhos testados:');
+    console.log('- ' + baseUrl + '/images/capivara1.gif');
+    console.log('- ' + window.location.href.split('/').slice(0, -1).join('/') + '/images/capivara1.gif');
+    
+    // Tentar verificar diretamente o arquivo via API
+    if (baseUrl.includes('localhost') || baseUrl.includes('127.0.0.1')) {
+        fetch(baseUrl + '/check-image')
+          .then(res => {
+            console.log('Verificação do arquivo via API:', res.status === 200 ? 'Disponível' : 'Indisponível');
+          })
+          .catch(err => {
+            console.error('Erro ao verificar arquivo via API:', err);
+          });
+          
+        fetch(baseUrl + '/api/file-check')
+          .then(res => res.json())
+          .then(data => {
+            console.log('Diagnóstico de arquivos estáticos:', data);
+          })
+          .catch(err => {
+            console.error('Erro ao verificar arquivos estáticos:', err);
+          });
+    }
+});
+
+// Verifica se é necessário exibir mensagem sobre API e destacar o botão de configurações
+setTimeout(() => {
+    const apiKey = getStoredApiKey();
+    const settingsButton = document.getElementById("show-api-key-modal");
+    const settingsTooltip = settingsButton.querySelector(".settings-tooltip");
+    
+    if (!apiKey) {
+        // Destaca o botão de configurações
+        settingsButton.classList.add("needs-config");
+        
+        // Atualiza o texto do tooltip
+        if (settingsTooltip) {
+            settingsTooltip.textContent = "⚠️ Clique aqui para configurar sua chave API";
+        }
+        
+        // Adiciona mensagem sobre a necessidade de configurar
+        addMessage("Nyaa~ Para começarmos nossa conversa, você precisa configurar sua chave API do Google Gemini! Clique no botão piscando ⚙️ no canto superior direito! 🌱", "bot-message");
+        
+        // Destaca visualmente o botão de configuração com uma animação de pulso
+        settingsButton.animate([
+            { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(255, 99, 71, 0.7)' },
+            { transform: 'scale(1.1)', boxShadow: '0 0 0 10px rgba(255, 99, 71, 0)' },
+            { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(255, 99, 71, 0)' }
+        ], {
+            duration: 2000,
+            iterations: 3
+        });
+    } else {
+        settingsButton.classList.remove("needs-config");
+        
+        // Texto normal para o tooltip
+        if (settingsTooltip) {
+            settingsTooltip.textContent = "Configurações da API";
+        }
+    }
+}, 1500);
+
+// Inicializa as interações com os elementos decorativos
+initDecorationInteractions();

@@ -228,13 +228,14 @@ body::before {
     text-align: left;
     font-size: 1rem;
     margin-bottom: 1.2rem;
-    box-shadow: inset 0 4px 8px rgba(169, 124, 80, 0.15),
-                inset 0 -4px 8px rgba(255, 255, 255, 0.8);
-    border: 2px solid rgba(169, 124, 80, 0.1);
-    scroll-behavior: smooth;
-    padding-top: 5px; /* Espaço adicional no topo para evitar que o botão sobreponha o conteúdo */
+    border: 2px solid rgba(169, 124, 80, 0.2);
+    box-shadow: 0 4px 15px rgba(169, 124, 80, 0.1), 
+                inset 0 -2px 0 rgba(169, 124, 80, 0.1);
     position: relative;
-    z-index: 1; /* Menor que o z-index do botão */
+    /* Fundo com padrão sutil de folhas */
+    background-image: 
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23a97c50' fill-opacity='0.03' d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z'/%3E%3C/svg%3E"),
+        linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0.98));
 }
 
 /* Estilização da barra de rolagem */
@@ -267,59 +268,107 @@ body::before {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     animation: pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     opacity: 0;
-    transform: translateY(10px);
+    border: 1px solid rgba(169, 124, 80, 0.15);
 }
 
 .bot-message {
-    background-color: #f4e3c9;
+    background: linear-gradient(45deg, #FFE8D6, #F8FFE5);
+    border-bottom-left-radius: 0.3rem;
     align-self: flex-start;
-    border-bottom-left-radius: 0.4rem;
-    margin-right: auto;
-    border-left: 3px solid #c49b6d;
+    float: left;
+    clear: both;
+    position: relative;
+    border: 1px solid rgba(169, 124, 80, 0.2);
+    box-shadow: 0 2px 8px rgba(169, 124, 80, 0.1);
 }
 
 .bot-message::before {
-    content: "🦫";
+    content: "";
     position: absolute;
-    left: -25px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.2rem;
+    bottom: -0.5rem;
+    left: -0.2rem;
+    width: 1rem;
+    height: 1rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23F8FFE5' width='24px' height='24px'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M6 14l3 3v5h6v-5l3-3V9H6v5z' fill='%23F8FFE5' stroke='rgba(169, 124, 80, 0.15)' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: contain;
+    opacity: 0.8;
+}
+
+.bot-message::after {
+    content: "🌸";
+    position: absolute;
+    top: -0.8rem;
+    right: -0.2rem;
+    font-size: 0.8rem;
+    transform: rotate(15deg);
+    opacity: 0.7;
+}
+
+/* Adiciona pequenas flores alternadas às mensagens do bot */
+.bot-message:nth-child(odd)::after {
+    content: "🌼";
+}
+
+.bot-message:nth-child(3n)::after {
+    content: "🍃";
+}
+
+.bot-message:nth-child(4n)::after {
+    content: "✨";
 }
 
 .user-message {
-    background-color: #d8ffe0;
-    margin-left: auto; /* Alinha a mensagem do usuário à direita */
-    text-align: right;
-    border-bottom-right-radius: 0.4rem;
-    border-right: 3px solid #6dc49b;
-}
-
-/* Estilos para os diferentes tipos de mensagens de status */
-.error-message {
-    background-color: #ffe8e8;
-    border-left: 4px solid #ff6b6b;
-    color: #d63031;
-}
-
-.warning-message {
-    background-color: #fff8e8;
-    border-left: 4px solid #ffbe76;
-    color: #e17055;
-}
-
-.success-message {
-    background-color: #e8ffe8;
-    border-left: 4px solid #1dd1a1;
-    color: #10ac84;
-}
-
-/* Estilos de validação de API removidos */
-
-form {
-    display: flex;
-    gap: 0.7rem;
+    background: linear-gradient(45deg, #E6F4FF, #EEFFFD);
+    border-bottom-right-radius: 0.3rem;
+    align-self: flex-end;
+    float: right;
+    clear: both;
     position: relative;
+    border: 1px solid rgba(100, 149, 237, 0.2);
+    box-shadow: 0 2px 8px rgba(100, 149, 237, 0.1);
+}
+
+.user-message::before {
+    content: "";
+    position: absolute;
+    bottom: -0.5rem;
+    right: -0.2rem;
+    width: 1rem;
+    height: 1rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23EEFFFD' width='24px' height='24px'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M18 14l-3 3v5H9v-5l-3-3V9h12z' fill='%23EEFFFD' stroke='rgba(100, 149, 237, 0.15)' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: contain;
+    opacity: 0.8;
+}
+
+/* Adiciona pequenos sparkles às mensagens do usuário */
+.user-message::after {
+    content: "✨";
+    position: absolute;
+    top: -0.8rem;
+    left: -0.2rem;
+    font-size: 0.8rem;
+    transform: rotate(-15deg);
+    opacity: 0.7;
+}
+
+/* Adiciona pequenas variações às mensagens do usuário */
+.user-message:nth-child(odd)::after {
+    content: "💭";
+}
+
+.user-message:nth-child(3n)::after {
+    content: "🍀";
+}
+
+.user-message:nth-child(4n)::after {
+    content: "💌";
+}
+
+#chat-form {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 0.5rem 0;
 }
 
 #user-input {
@@ -327,224 +376,95 @@ form {
     padding: 0.8rem 1.2rem;
     border-radius: 1.5rem;
     border: 2px solid rgba(169, 124, 80, 0.2);
-    font-size: 1rem;
-    background: #fffbf6;
+    background-color: white;
     font-family: 'Baloo 2', cursive;
+    font-size: 1rem;
     color: #6a4928;
-    box-shadow: 0 4px 8px rgba(169, 124, 80, 0.08),
-                inset 0 2px 3px rgba(255, 255, 255, 0.9);
+    outline: none;
     transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(169, 124, 80, 0.08), 
+                inset 0 2px 3px rgba(255, 255, 255, 0.8);
+}
+
+#user-input:hover {
+    border-color: rgba(169, 124, 80, 0.3);
+    box-shadow: 0 4px 12px rgba(169, 124, 80, 0.12);
 }
 
 #user-input:focus {
-    outline: none;
     border-color: rgba(169, 124, 80, 0.4);
-    box-shadow: 0 4px 12px rgba(169, 124, 80, 0.15);
-    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(169, 124, 80, 0.15),
+                0 0 0 3px rgba(255, 195, 161, 0.3);
 }
 
 #user-input::placeholder {
-    color: #b29a7c;
+    color: #b09782;
     opacity: 0.7;
 }
 
-button {
-    background-color: #a97c50;
-    color: #fff;
+/* Adiciona um pequeno elemento fofo no campo de input */
+#user-input:focus::before {
+    content: "✨";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#chat-form button {
+    margin-left: 0.8rem;
+    padding: 0.7rem 1.2rem;
+    background: linear-gradient(to bottom, #FFC3A1, #FFAD84);
     border: none;
     border-radius: 1.5rem;
-    padding: 0.8rem 1.2rem;
+    color: #6a4928;
+    font-family: 'Baloo 2', cursive;
     font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    font-family: 'Baloo 2', cursive;
-    font-weight: 600;
-    box-shadow: 0 4px 0 #8c6239,
-                0 5px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 0 #FFAD84,
+                0 5px 5px rgba(169, 124, 80, 0.15);
     position: relative;
-    top: 0;
+    overflow: hidden;
+    font-weight: bold;
 }
 
-button:hover {
-    background-color: #bf9262;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 0 #8c6239,
-                0 8px 12px rgba(0, 0, 0, 0.15);
-}
-
-button:active {
-    top: 4px;
-    transform: translateY(0);
-    box-shadow: 0 0px 0 #8c6239,
-                0 2px 4px rgba(0, 0, 0, 0.15);
-}
-
-/* Estilos de configuração e modal completamente removidos */
-
-/* Estilos de validação e ajuda de API removidos */
-
-/* Estilo para os poemas da Tomo */
-.bot-message.poem {
-    background: linear-gradient(135deg, #ffe8f7, #e8f4ff);
-    font-style: italic;
-    white-space: pre-line;
-    padding: 1.5rem 1rem;
-    border-left: 4px solid #ffb7c5;
-    border-radius: 1.5rem 1.5rem 1.5rem 0;
-    box-shadow: 0 4px 10px rgba(169, 124, 80, 0.15);
-    text-align: center;
-    line-height: 1.6;
-    margin: 1.5rem 0;
-    position: relative;
-    z-index: 5;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
-    clear: both;
-}
-
-.bot-message.poem::before {
-    content: "✍️";
-    display: block;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-/* Ajusta o tamanho do texto do poema para garantir legibilidade */
-.bot-message.poem {
-    font-size: 0.95rem;
-    max-width: 100%;
-}
-
-/* Botão de poema */
-.poem-button {
+/* Adiciona brilho decorativo ao botão */
+#chat-form button::before {
+    content: "";
     position: absolute;
-    top: 15px;
-    right: 15px; /* Ajustado após remoção do botão de configuração */
-    background: linear-gradient(135deg, #ffb7c5, #ff9eb5);
-    color: white;
-    border: none;
-    border-radius: 20px;
-    padding: 6px 12px;
-    font-size: 0.8rem;
-    box-shadow: 0 3px 5px rgba(169, 124, 80, 0.3);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: 'Baloo 2', cursive;
-    z-index: 10;
-    opacity: 0.8;
+    top: -10px;
+    left: -10px;
+    width: 25px;
+    height: 25px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FFF' opacity='0.4' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/%3E%3C/svg%3E");
+    background-size: cover;
+    z-index: 0;
+    transform: rotate(-25deg);
+    opacity: 0.4;
+    animation: shimmer 3s infinite ease-in-out;
 }
 
-.poem-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(169, 124, 80, 0.4);
-    background: linear-gradient(135deg, #ff9eb5, #ff85a2);
-    opacity: 1;
-}
-
-.poem-button.clicked {
-    transform: scale(0.95);
-}
-
-.poem-button.minimized {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    /* Centralizar quando minimizado */
-    right: 15px;
-}
-
-@media (max-width: 600px) {
-    .poem-button.minimized {
-        right: 10px;
-    }
-}
-
-.poem-button.minimized .full-text {
-    display: none;
-}
-
-@keyframes popIn {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
-    80% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-/* Ajuste para o botão de poema em telas menores */
-@media (max-width: 600px) {
-    .poem-button {
-        top: 10px;
-        right: 10px;
-        font-size: 0.75rem;
-        padding: 5px 10px;
-    }
-}
-
-/* Estilos de teste de API removidos */
-
-/* Indicador de status do Gemini API (rate limit) */
-.gemini-status {
-    position: absolute;
-    top: 55px; /* Posicionado abaixo apenas do botão de poema */
-    right: 15px;
-    background: rgba(255, 239, 213, 0.95);
-    border-radius: 20px;
-    padding: 5px 10px;
-    box-shadow: 0 2px 5px rgba(169, 124, 80, 0.3);
-    font-size: 0.8rem;
-    color: #8c6239;
-    border: 1px solid rgba(169, 124, 80, 0.2);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    z-index: 10;
-    animation: fadeIn 0.5s ease;
-}
-
-.gemini-status-icon {
-    font-size: 1rem;
-    animation: pulse 1.5s infinite;
-}
-
-.gemini-status-text {
-    font-weight: 500;
-}
-
-@keyframes pulse {
-    0% {
-        opacity: 0.5;
-        transform: scale(0.95);
+@keyframes shimmer {
+    0%, 100% {
+        opacity: 0.3;
+        transform: rotate(-25deg) scale(1);
     }
     50% {
-        opacity: 1;
-        transform: scale(1.05);
-    }
-    100% {
         opacity: 0.5;
-        transform: scale(0.95);
+        transform: rotate(-25deg) scale(1.1);
     }
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+#chat-form button:hover {
+    background: linear-gradient(to bottom, #ffceaf, #ffb994);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #FFAD84,
+                0 7px 10px rgba(169, 124, 80, 0.2);
+}
+
+#chat-form button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #FFAD84,
+                0 3px 5px rgba(169, 124, 80, 0.1);
 }

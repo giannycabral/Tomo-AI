@@ -22,7 +22,8 @@ fi
 if [ ! -f ".env" ] && [ -f ".env.example" ]; then
     echo "Arquivo .env não encontrado. Criando a partir do exemplo..."
     cp .env.example .env
-    echo "Por favor, edite o arquivo backend/.env e adicione sua chave API Gemini real."
+    echo "Nota: Você pode configurar sua chave API Gemini no arquivo backend/.env OU diretamente na interface do usuário."
+    echo "      A configuração pela interface é recomendada pois não salva a chave em nenhum arquivo."
 fi
 
 # Inicia o servidor

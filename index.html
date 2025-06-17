@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/animations.css" />
   <link rel="stylesheet" href="css/decorations.css" />
+  <link rel="stylesheet" href="css/modal.css" />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
  </head>
 <body>
@@ -17,6 +18,23 @@
   <div class="bubble" style="width: 35px; height: 35px; top: 75%; right: 10%; --move-x: -100px; --move-y: -180px;"></div>
   <div class="bubble" style="width: 20px; height: 20px; top: 40%; left: 8%; --move-x: 70px; --move-y: -100px;"></div>
   <div class="bubble" style="width: 30px; height: 30px; top: 30%; right: 8%; --move-x: -110px; --move-y: -150px;"></div>
+  
+  <!-- Novos elementos decorativos flutuantes -->
+  <div class="floating-decoration flower-float-1">
+    <img src="images/svg/flower.svg" alt="Flor flutuante" class="svg-decoration">
+  </div>
+  <div class="floating-decoration leaf-float-1">
+    <img src="images/svg/leaf.svg" alt="Folha flutuante" class="svg-decoration">
+  </div>
+  <div class="floating-decoration sprout-float-1">
+    <img src="images/svg/sprout.svg" alt="Broto flutuante" class="svg-decoration">
+  </div>
+  <div class="floating-decoration flower-float-2">
+    <img src="images/svg/flower.svg" alt="Flor flutuante" class="svg-decoration">
+  </div>
+  <div class="floating-decoration leaf-float-2">
+    <img src="images/svg/leaf.svg" alt="Folha flutuante" class="svg-decoration">
+  </div>
 
   <div class="chatbot-container">
     <div class="mascot-container">
@@ -44,16 +62,124 @@
       </div>
     </div>
     <h1 class="title">Oi! Eu sou Tomo-AI!</h1>
+    
+    <!-- Elementos decorativos no topo da caixa de chat -->
+    <div class="chat-decorations-top">
+      <div class="decoration flower-top-left">
+        <img src="images/svg/flower.svg" alt="Flor" class="svg-decoration">
+      </div>
+      <div class="decoration leaf-top-right">
+        <img src="images/svg/leaf.svg" alt="Folha" class="svg-decoration">
+      </div>
+      <!-- Novos elementos decorativos no topo do chat -->
+      <div class="decoration sprout-top-middle">
+        <img src="images/svg/sprout.svg" alt="Broto" class="svg-decoration">
+      </div>
+      <div class="decoration flower-top-center">
+        <img src="images/svg/flower.svg" alt="Flor" class="svg-decoration">
+      </div>
+    </div>
+    
     <div id="chat" class="chat-box">
       <div class="bot-message">Olá! Sou o Tomo, sua capivara amiga. Vamos conversar? 🍃</div>
     </div>
+    
+    <!-- Elementos decorativos laterais da caixa de chat -->
+    <div class="chat-decorations-side">
+      <div class="decoration flower-chat-left">
+        <img src="images/svg/flower.svg" alt="Flor" class="svg-decoration">
+      </div>
+      <div class="decoration flower-chat-right">
+        <img src="images/svg/flower.svg" alt="Flor" class="svg-decoration">
+      </div>
+      <!-- Novos elementos decorativos nas laterais do chat -->
+      <div class="decoration leaf-chat-left-bottom">
+        <img src="images/svg/leaf.svg" alt="Folha" class="svg-decoration">
+      </div>
+      <div class="decoration sprout-chat-right-bottom">
+        <img src="images/svg/sprout.svg" alt="Broto" class="svg-decoration">
+      </div>
+    </div>
+    
     <form id="chat-form">
       <input type="text" id="user-input" placeholder="Converse comigo..." required />
       <button type="submit">Enviar 💌</button>
     </form>
+    
+    <!-- Elementos decorativos no formulário -->
+    <div class="form-decorations">
+      <div class="decoration grass-form-left">
+        <img src="images/svg/grass.svg" alt="Grama" class="svg-decoration">
+      </div>
+      <div class="decoration sprout-form-right">
+        <img src="images/svg/sprout.svg" alt="Broto" class="svg-decoration">
+      </div>
+      <!-- Novos elementos decorativos no formulário -->
+      <div class="decoration flower-form-center">
+        <img src="images/svg/flower.svg" alt="Flor" class="svg-decoration">
+      </div>
+      <div class="decoration leaf-form-left">
+        <img src="images/svg/leaf.svg" alt="Folha" class="svg-decoration">
+      </div>
+    </div>
+    
+    <!-- Botão de configuração para inserir chave API -->
+    <div class="settings-button" id="show-api-key-modal">
+      <span title="Configurar API">⚙️</span>
+      <!-- Decoração pequena perto do botão de configuração -->
+      <div class="settings-decoration">
+        <img src="images/svg/leaf.svg" alt="Folha" class="small-decoration">
+      </div>
+      <div class="settings-tooltip">Configurar API</div>
+    </div>
   </div>
-
-  <!-- O modal de configurações foi removido -->
+  
+  <!-- Modal para chave de API -->
+  <div id="api-key-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Configurar Tomo-AI</h2>
+      <p>Insira sua chave API do Google Gemini abaixo:</p>
+      
+      <div class="api-key-input-container">
+        <input type="password" id="api-key-input" placeholder="Sua chave API Gemini" />
+        <button id="toggle-api-key-visibility" type="button">👁️</button>
+      </div>
+      <p class="info-text">Sua chave API será armazenada apenas na sessão atual do navegador e não será salva em nenhum arquivo.</p>
+      
+      <!-- Seleção de modelo Gemini -->
+      <div class="model-selection">
+        <label for="model-select">Modelo Gemini:</label>
+        <select id="model-select" class="model-select">
+          <option value="gemini-1.5-pro">Gemini 1.5 Pro (Padrão)</option>
+          <option value="gemini-2.0-flash">Gemini 2.0 Flash (Mais Rápido)</option>
+          <option value="gemini-pro">Gemini Pro (Legado)</option>
+        </select>
+        <div class="model-info">O modelo selecionado afeta a qualidade e velocidade das respostas.</div>
+      </div>
+      
+      <div class="modal-buttons">
+        <button id="save-api-key">Salvar</button>
+        <button id="clear-api-key">Limpar</button>
+      </div>
+      
+      <div id="api-status" class="api-status">
+        <div class="status-indicator"></div>
+        <span>Status desconhecido</span>
+      </div>
+      
+      <!-- Decorações no modal -->
+      <div class="decoration modal-flower">
+        <img src="images/svg/flower.svg" alt="Flor" class="svg-decoration">
+      </div>
+      <div class="decoration modal-leaf">
+        <img src="images/svg/leaf.svg" alt="Folha" class="svg-decoration">
+      </div>
+      <div class="decoration modal-sprout">
+        <img src="images/svg/sprout.svg" alt="Broto" class="svg-decoration">
+      </div>
+    </div>
+  </div>
 
   <script src="js/image-helper.js"></script>
   <script src="js/script.js"></script>

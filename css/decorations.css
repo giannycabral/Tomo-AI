@@ -61,20 +61,60 @@
     }
 }
 
+@keyframes floatingFlower {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(4px, -3px) rotate(3deg);
+    }
+    50% {
+        transform: translate(0, -5px) rotate(-2deg);
+    }
+    75% {
+        transform: translate(-4px, -2px) rotate(1deg);
+    }
+}
+
+/* Nova animação para elementos flutuantes */
+@keyframes floatAround {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(15px, -15px) rotate(5deg);
+    }
+    50% {
+        transform: translate(25px, 0px) rotate(-5deg);
+    }
+    75% {
+        transform: translate(10px, 15px) rotate(3deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+}
+
 /* Animações específicas por tipo de decoração */
-.grass-left .svg-decoration, .grass-right .svg-decoration {
+.grass-left .svg-decoration, .grass-right .svg-decoration,
+.grass-form-left .svg-decoration {
     animation: gentleSway 5s ease-in-out infinite;
 }
 
-.flower-left .svg-decoration, .flower-right .svg-decoration {
+.flower-left .svg-decoration, .flower-right .svg-decoration,
+.flower-chat-left .svg-decoration, .flower-chat-right .svg-decoration,
+.flower-top-left .svg-decoration, .modal-flower .svg-decoration,
+.flower-top-center .svg-decoration, .flower-form-center .svg-decoration {
     animation: popIn 0.5s ease forwards, gentleSway 6s ease-in-out 0.5s infinite;
 }
 
-.leaf-top .svg-decoration {
+.leaf-top .svg-decoration, .leaf-top-right .svg-decoration,
+.leaf-chat-left-bottom .svg-decoration, .leaf-form-left .svg-decoration {
     animation: gentleSway 7s ease-in-out infinite;
 }
 
-.sprout .svg-decoration {
+.sprout .svg-decoration, .sprout-form-right .svg-decoration,
+.sprout-top-middle .svg-decoration, .sprout-chat-right-bottom .svg-decoration {
     animation: grow 4s ease infinite;
 }
 
@@ -89,6 +129,191 @@
 /* Efeito de brilho nos SVGs ao passar o mouse */
 .decoration:hover .svg-decoration {
     filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7)) brightness(1.1);
+}
+
+/* Posicionamento dos novos elementos decorativos */
+.chat-decorations-top {
+    position: absolute;
+    width: 100%;
+    top: -15px;
+    left: 0;
+    z-index: 5;
+}
+
+.flower-top-left {
+    position: absolute;
+    top: 5px;
+    left: 15px;
+    transform: scale(0.8) rotate(-15deg);
+}
+
+.leaf-top-right {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    transform: scale(0.8) rotate(15deg);
+}
+
+.chat-decorations-side {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.flower-chat-left {
+    position: absolute;
+    left: -18px;
+    top: 50%;
+    transform: scale(0.7) rotate(-20deg);
+}
+
+.flower-chat-right {
+    position: absolute;
+    right: -18px;
+    top: 35%;
+    transform: scale(0.7) rotate(20deg);
+}
+
+.form-decorations {
+    position: relative;
+    width: 100%;
+    height: 0;
+}
+
+.grass-form-left {
+    position: absolute;
+    bottom: 10px;
+    left: -15px;
+    transform: scale(0.7);
+    z-index: 5;
+}
+
+.sprout-form-right {
+    position: absolute;
+    bottom: 5px;
+    right: -10px;
+    transform: scale(0.7);
+    z-index: 5;
+}
+
+/* Modal decoração */
+.modal-flower {
+    position: absolute;
+    bottom: -15px;
+    right: -15px;
+    transform: scale(0.6);
+    opacity: 0.8;
+    z-index: -1;
+}
+
+/* Elementos decorativos flutuantes */
+.floating-decoration {
+    position: fixed;
+    z-index: 0;
+    opacity: 0.7;
+    pointer-events: none; /* Para não interferir com cliques */
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+}
+
+.floating-decoration .svg-decoration {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+}
+
+/* Posicionamento dos elementos flutuantes */
+.flower-float-1 {
+    top: 15%;
+    left: 8%;
+    width: 60px;
+    height: 60px;
+    animation: floatAround 25s ease-in-out infinite;
+}
+
+.flower-float-2 {
+    bottom: 18%;
+    right: 12%;
+    width: 45px;
+    height: 45px;
+    animation: floatAround 30s ease-in-out infinite reverse;
+}
+
+.leaf-float-1 {
+    top: 25%;
+    right: 10%;
+    width: 40px;
+    height: 40px;
+    animation: floatAround 28s ease-in-out infinite 2s;
+}
+
+.leaf-float-2 {
+    bottom: 25%;
+    left: 15%;
+    width: 35px;
+    height: 35px;
+    animation: floatAround 32s ease-in-out infinite 5s reverse;
+}
+
+.sprout-float-1 {
+    top: 60%;
+    right: 18%;
+    width: 50px;
+    height: 50px;
+    animation: floatAround 35s ease-in-out infinite 8s;
+}
+
+/* Novos elementos decorativos no topo do chat */
+.sprout-top-middle {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.6) rotate(5deg);
+    z-index: 5;
+}
+
+.flower-top-center {
+    position: absolute;
+    top: -15px;
+    left: 35%;
+    transform: scale(0.5) rotate(-15deg);
+    z-index: 5;
+}
+
+/* Novos elementos decorativos nas laterais do chat */
+.leaf-chat-left-bottom {
+    position: absolute;
+    left: -15px;
+    bottom: 30%; 
+    transform: scale(0.6) rotate(-15deg);
+    z-index: 5;
+}
+
+.sprout-chat-right-bottom {
+    position: absolute;
+    right: -15px;
+    bottom: 25%;
+    transform: scale(0.6) rotate(10deg);
+    z-index: 5;
+}
+
+/* Novos elementos decorativos no formulário */
+.flower-form-center {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.45) rotate(5deg);
+    z-index: 5;
+}
+
+.leaf-form-left {
+    position: absolute;
+    bottom: -5px;
+    left: 25%;
+    transform: scale(0.5) rotate(-10deg);
+    z-index: 5;
 }
 
 /* Responsividade para dispositivos móveis */
@@ -109,6 +334,15 @@
     
     .flower-left, .flower-right {
         bottom: 15px;
+    }
+    
+    /* Ajustes para novos elementos em telas menores */
+    .flower-chat-left, .flower-chat-right {
+        transform: scale(0.5);
+    }
+    
+    .flower-top-left, .leaf-top-right {
+        transform: scale(0.6);
     }
 }
 
@@ -140,4 +374,79 @@
 
 .sprout {
     animation-delay: 1.2s;
+}
+
+/* Atrasos para os novos elementos decorativos */
+.flower-top-left {
+    animation-delay: 1.4s;
+}
+
+.leaf-top-right {
+    animation-delay: 1.6s;
+}
+
+.sprout-top-middle {
+    animation-delay: 1.7s;
+}
+
+.flower-top-center {
+    animation-delay: 1.8s;
+}
+
+.flower-chat-left {
+    animation-delay: 1.8s;
+}
+
+.flower-chat-right {
+    animation-delay: 2.0s;
+}
+
+.leaf-chat-left-bottom {
+    animation-delay: 2.1s;
+}
+
+.sprout-chat-right-bottom {
+    animation-delay: 2.2s;
+}
+
+.grass-form-left {
+    animation-delay: 2.2s;
+}
+
+.sprout-form-right {
+    animation-delay: 2.4s;
+}
+
+.flower-form-center {
+    animation-delay: 2.5s;
+}
+
+.leaf-form-left {
+    animation-delay: 2.6s;
+}
+
+.modal-flower {
+    animation-delay: 0.5s;
+}
+
+/* Ajustes para as decorações em diferentes contextos */
+.chat-box {
+    position: relative;
+    z-index: 2;
+}
+
+#chat-form {
+    position: relative;
+    z-index: 3;
+}
+
+/* Efeito de destaque nos elementos decorativos */
+.decoration--highlight {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8)) brightness(1.2);
+    z-index: 10;
+}
+
+.decoration--highlight .svg-decoration {
+    animation: popIn 0.5s ease-out, gentleSway 4s ease-in-out 0.5s infinite;
+    filter: saturate(1.5) brightness(1.2);
 }
