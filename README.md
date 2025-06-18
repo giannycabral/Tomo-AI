@@ -130,7 +130,7 @@ O Tomo é uma capivara fofa e amigável que oferece:
 ## 🎮 Uso
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/c5161afb-7718-4c88-b258-757ff2dcd3ec" width="500" alt="Tomo-AI Interface">
+  <img src="https://github.com/user-attachments/assets/08090d5a-70f6-4e95-854c-0d957327b7bd" width="500" alt="Tomo-AI Interface">
 </div>
 
 ### 🌟 Começando
@@ -258,7 +258,7 @@ A personalidade e comportamento do Tomo podem ser personalizados:
 ## 🎨 Design Visual
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/c5161afb-7718-4c88-b258-757ff2dcd3ec" width="300" alt="Tomo-AI Interface">
+  <img src="https://github.com/user-attachments/assets/08090d5a-70f6-4e95-854c-0d957327b7bd" width="300" alt="Tomo-AI Interface">
 </div>
 
 O Tomo-AI apresenta um design visual kawaii e floral cuidadosamente elaborado:
